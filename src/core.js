@@ -2,11 +2,8 @@ define([
 	"cldr"
 ], function( Cldr ) {
 
-var defaultCldr;
-
-function cldr( locale ) {
-	return locale instanceof Cldr ? locale : new Cldr( locale );
-}
+var cldr, defaultCldr,
+	cachedCldrs = {};
 
 /**
  * [new] Globalize( locale )
@@ -28,6 +25,27 @@ function Globalize( locale ) {
 
 	this.cldr = cldr( locale );
 }
+
+/**
+ * [private] Globalize._cldr( locale|cldr )
+ *
+ * @locale [String]
+ *
+ * @cldr [Cldr instance]
+ *
+ * Return cldr or cached Cldr instance giving locale.
+ */
+Globalize._cldr = cldr = function( locale ) {
+	if ( locale instanceof Cldr ) {
+		return locale;
+	}
+
+	if ( !cachedCldrs[ locale ] ) {
+		cachedCldrs[ locale ] = new Cldr( locale );
+	}
+
+	return cachedCldrs[ locale ];
+};
 
 /**
  * Globalize.load( json )
