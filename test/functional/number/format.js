@@ -22,6 +22,7 @@ test( "should format decimal style", function() {
 	equal( Globalize.formatNumber( pi, {}, "es" ), "3,142", "" );
 	equal( Globalize.formatNumber( pi, {}, "ar" ), "3٫142", "" );
 	equal( Globalize.formatNumber( 99999999.99 ), "99,999,999.99", "" );
+	equal( Globalize( "es" ).formatNumber( pi, {} ), "3,142", "" );
 
 	equal( Globalize.formatNumber( pi, {
 		minimumIntegerDigits: 2,

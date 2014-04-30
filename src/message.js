@@ -5,6 +5,8 @@ define([
 	"./util/always-array"
 ], function( Cldr, commonGetCldr, Globalize, alwaysArray ) {
 
+var translate;
+
 /**
  * Globalize.loadMessages( locale, json )
  *
@@ -24,7 +26,8 @@ Globalize.loadMessages = function( locale, json ) {
 };
 
 /**
- * Globalize.translate( path, locale )
+ * Globalize.translate( path, locale ), or
+ * globalize.translate( path )
  *
  * @path [String or Array]
  *
@@ -32,10 +35,14 @@ Globalize.loadMessages = function( locale, json ) {
  *
  * Translate item given its path.
  */
-Globalize.translate = function( path , locale ) {
+Globalize.translate = translate = function( path , locale ) {
 	var cldr = commonGetCldr( locale );
 	path = alwaysArray( path );
 	return cldr.get( [ "globalize-messages/{languageId}" ].concat( path ) );
+};
+
+Globalize.prototype.translate = function( path ) {
+	return translate( path, this.cldr );
 };
 
 return Globalize;

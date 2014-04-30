@@ -5,8 +5,11 @@ define([
 	"./number/pattern"
 ], function( commonGetCldr, Globalize, numberFormat, numberPattern ) {
 
+var formatNumber, parseNumber;
+
 /**
- * Globalize.formatNumber( value, pattern, locale )
+ * Globalize.formatNumber( value, pattern, locale ), or
+ * globalize.formatNumber( value, pattern )
  *
  * @value [Number]
  *
@@ -18,7 +21,7 @@ define([
  *
  * Format a number according to the given attributes and the given locale (or the default locale if not specified).
  */
-Globalize.formatNumber = function( value, attributes, locale ) {
+Globalize.formatNumber = formatNumber = function( value, attributes, locale ) {
 	var pattern;
 
 	if ( typeof value !== "number" ) {
@@ -35,8 +38,13 @@ Globalize.formatNumber = function( value, attributes, locale ) {
 	return numberFormat( value, pattern, locale, attributes );
 };
 
+Globalize.prototype.formatNumber = function( value, attributes ) {
+	return formatNumber( value, attributes, this.cldr );
+};
+
 /**
- * Globalize.parseNumber( value, patterns, locale )
+ * Globalize.parseNumber( value, patterns, locale ), or
+ * globalize.parseNumber( value, patterns )
  *
  * @value [String]
  *
@@ -46,8 +54,12 @@ Globalize.formatNumber = function( value, attributes, locale ) {
  *
  * Return a Number or null.
  */
-Globalize.parseNumber = function( /*value, patterns, locale*/ ) {
+Globalize.parseNumber = parseNumber = function( /*value, patterns, locale*/ ) {
 	return null;
+};
+
+Globalize.prototype.parseNumber = function( value, patterns ) {
+	return parseNumber( value, patterns, this.cldr );
 };
 
 return Globalize;

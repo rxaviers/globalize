@@ -2,8 +2,32 @@ define([
 	"cldr"
 ], function( Cldr ) {
 
-var defaultCldr,
-	Globalize = {};
+var defaultCldr;
+
+function cldr( locale ) {
+	return locale instanceof Cldr ? locale : new Cldr( locale );
+}
+
+/**
+ * [new] Globalize( locale )
+ *
+ * @locale [String]
+ *
+ * @cldr [Cldr instance]
+ *
+ * Create a Globalize instance.
+ */
+function Globalize( locale ) {
+	if ( !( this instanceof Globalize ) ) {
+		return new Globalize( locale );
+	}
+
+	if ( !locale ) {
+		throw new Error( "Missing locale" );
+	}
+
+	this.cldr = cldr( locale );
+}
 
 /**
  * Globalize.load( json )
@@ -30,7 +54,7 @@ Globalize.load = function( json ) {
  */
 Globalize.locale = function( locale ) {
 	if ( arguments.length ) {
-		defaultCldr = locale instanceof Cldr ? locale : new Cldr( locale );
+		defaultCldr = cldr( locale );
 	}
 	return defaultCldr;
 };
