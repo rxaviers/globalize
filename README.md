@@ -206,6 +206,12 @@ to you in different flavors):
 
  [Read more...](doc/api/core/locale.md)
 
+- **`[new] Globalize( locale|cldr )`**
+
+ Create a Globalize instance.
+
+ [Read more...](doc/api/core/constructor.md)
+
 <a name="date_module"></a>
 ### Date module
 
