@@ -31,8 +31,11 @@ Globalize.parseDate( "1/2/13" );
 Globalize.locale( "es" );
 Globalize.parseDate( "1/2/13" );
 // Fri Feb 01 2013 00:00:00
+```
 
-// You can use instance methods to replace the locale argument.
+You can use instance methods to replace the locale argument.
+
+```javascript
 var es = new Globalize( "es" );
 es.parseDate( "1/2/13" );
 // Fri Feb 01 2013 00:00:00
