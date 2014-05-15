@@ -4,10 +4,6 @@ Format a number `value` according to the given `attributes` and `[locale|cldr]`
 (locale string or [Cldr instance](https://github.com/rxaviers/cldrjs), or the
 default locale if not specified).
 
-### Globalize.formatNumber( value [, attributes] [, locale|cldr] )
-
-### .formatNumber( value [, attributes] )
-
 ### Parameters
 
 **value**
@@ -94,14 +90,6 @@ Globalize.formatNumber( 0.00012345, {
     maximumSignificantDigits: 3
 });
 // "0.000123"
-
-// You can use instance methods to replace the locale argument.
-var pt = new Globalize( "pt" );
-pt.formatNumber( 0.00012345, {
-    minimumSignificantDigits: 1,
-    maximumSignificantDigits: 3
-});
-// "0,000123"
 ```
 
 Using different rounding functions example:
@@ -109,4 +97,11 @@ Using different rounding functions example:
 ```
 Globalize.formatNumber( 3.141592, { maximumFractionDigits: 2, round: "ceil" } );
 // "3.15"
+```
+
+You can use instance methods to replace the locale argument.
+
+```javascript
+var es = new Globalize( "es" );
+es.formatNumber( 3.141592 ); // "3,142"
 ```
