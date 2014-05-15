@@ -4,6 +4,10 @@ Format a number `value` according to the given `attributes` and `[locale|cldr]`
 (locale string or [Cldr instance](https://github.com/rxaviers/cldrjs), or the
 default locale if not specified).
 
+### Globalize.formatNumber( value [, attributes] [, locale|cldr] )
+
+### .formatNumber( value [, attributes] )
+
 ### Parameters
 
 **value**
