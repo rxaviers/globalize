@@ -60,6 +60,13 @@ Globalize.formatNumber( 3.141592, {}, "es" ); // "3,142"
 Globalize.formatNumber( 3.141592, {}, "ar" ); // "3٫142"
 ```
 
+You can use instance methods to replace the locale argument.
+
+```javascript
+var es = new Globalize( "es" );
+es.formatNumber( 3.141592 ); // "3,142"
+```
+
 Controlling digits by specifying integer and fraction digits counts:
 
 ```
@@ -97,11 +104,4 @@ Using different rounding functions example:
 ```
 Globalize.formatNumber( 3.141592, { maximumFractionDigits: 2, round: "ceil" } );
 // "3.15"
-```
-
-You can use instance methods to replace the locale argument.
-
-```javascript
-var es = new Globalize( "es" );
-es.formatNumber( 3.141592 ); // "3,142"
 ```
