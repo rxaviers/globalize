@@ -85,11 +85,19 @@ Globalize.formatNumber( 12345, {
 });
 // "12,300"
 
-equal( Globalize.formatNumber( 0.00012345, {
+Globalize.formatNumber( 0.00012345, {
     minimumSignificantDigits: 1,
     maximumSignificantDigits: 3
 });
 // "0.000123"
+
+// You can use instance methods to replace the locale argument.
+var pt = new Globalize( "pt" );
+pt.formatNumber( 0.00012345, {
+    minimumSignificantDigits: 1,
+    maximumSignificantDigits: 3
+});
+// "0,000123"
 ```
 
 Using different rounding functions example:
