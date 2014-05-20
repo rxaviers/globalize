@@ -9,11 +9,15 @@ define([
  *
  * @message [Sring]
  *
- * @data [Array or JSON]
+ * @data [Various] If an Array or a JSON object, {...} will be replaced with corresponding keys. If it's of another type, {0} will be replaced with such.
  *
  * Format message FIXME.
  */
 Globalize.formatMessage = function( message, data ) {
+
+	// Data must be an Array or a JSON object. Any other data type will be converted to [ data ].
+	data = typeof data === "object" ? data : [ data ];
+
 	// Replace {attribute}'s
 	message = message.replace( /{[0-9a-zA-Z-_. ]+}/g, function( name ) {
 		name = name.replace( /^{([^}]*)}$/, "$1" );
@@ -44,8 +48,8 @@ Globalize.loadTranslations = function( json ) {
  * Translate item given its path.
  */
 Globalize.translate =
-Globalize.prototype.translate = function( path ) {
-	path = alwaysArray( path, messageData );
+Globalize.prototype.translate = function( path, messageData ) {
+	path = alwaysArray( path );
 	return this.formatMessage(
 		this.cldr.get( [ "globalize-translations/{languageId}" ].concat( path ) ),
 		messageData
