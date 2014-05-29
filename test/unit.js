@@ -31,7 +31,8 @@ require([
 	"./unit/plural/form",
 
 	/* unit */
-	"./unit/unit/get"
+	"./unit/unit/get",
+	"./unit/unit/format"
 
 ], function() {
 	QUnit.start();
