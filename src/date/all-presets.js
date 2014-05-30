@@ -1,7 +1,8 @@
 define([
 	"../util/array/map",
-	"../util/object/values"
-], function( arrayMap, objectValues ) {
+	"../util/object/values",
+	"../var/string/dates-calendars-gregorian"
+], function( arrayMap, objectValues, datesCalendarsGregorian ) {
 
 /**
  * allPreset()
@@ -14,26 +15,26 @@ return function( cldr ) {
 	var result = [];
 
 	// Skeleton
-	result = objectValues( cldr.main( "dates/calendars/gregorian/dateTimeFormats/availableFormats" ) );
+	result = objectValues( cldr.main( datesCalendarsGregorian + "dateTimeFormats/availableFormats" ) );
 
 	// Time
-	result = result.concat( objectValues( cldr.main( "dates/calendars/gregorian/timeFormats" ) ) );
+	result = result.concat( objectValues( cldr.main( datesCalendarsGregorian + "timeFormats" ) ) );
 
 	// Date
-	result = result.concat( objectValues( cldr.main( "dates/calendars/gregorian/dateFormats" ) ) );
+	result = result.concat( objectValues( cldr.main( datesCalendarsGregorian + "dateFormats" ) ) );
 
 	// Datetime
-	result = result.concat( arrayMap( objectValues( cldr.main( "dates/calendars/gregorian/dateTimeFormats" ) ), function( datetimeFormat, key ) {
+	result = result.concat( arrayMap( objectValues( cldr.main( datesCalendarsGregorian + "dateTimeFormats" ) ), function( datetimeFormat, key ) {
 		if ( typeof datetimeFormat !== "string" ) {
 			return datetimeFormat;
 		}
 		return datetimeFormat
 			.replace( /\{0\}/, cldr.main([
-				"dates/calendars/gregorian/timeFormats",
+				datesCalendarsGregorian + "timeFormats",
 				key
 			]))
 			.replace( /\{1\}/, cldr.main([
-				"dates/calendars/gregorian/dateFormats",
+				datesCalendarsGregorian + "dateFormats",
 				key
 			]));
 	}));

@@ -6,8 +6,9 @@ define([
 	"./pattern-re",
 	"./start-of",
 	"./week-days",
-	"../util/string/pad"
-], function( dateDayOfWeek, dateDayOfYear, dateFirstDayOfWeek, dateMillisecondsInDay, datePatternRe, dateStartOf, dateWeekDays, stringPad ) {
+	"../util/string/pad",
+	"../var/string/dates-calendars-gregorian"
+], function( dateDayOfWeek, dateDayOfYear, dateFirstDayOfWeek, dateMillisecondsInDay, datePatternRe, dateStartOf, dateWeekDays, stringPad, datesCalendarsGregorian ) {
 
 /**
  * format( date, pattern, cldr )
@@ -41,7 +42,7 @@ return function( date, pattern, cldr ) {
 			// Era
 			case "G":
 				ret = cldr.main([
-					"dates/calendars/gregorian/eras",
+					datesCalendarsGregorian + "eras",
 					length <= 3 ? "eraAbbr" : ( length === 4 ? "eraNames" : "eraNarrow" ),
 					date.getFullYear() < 0 ? 0 : 1
 				]);
@@ -84,7 +85,7 @@ return function( date, pattern, cldr ) {
 				} else {
 					// http://unicode.org/cldr/trac/ticket/6788
 					ret = cldr.main([
-						"dates/calendars/gregorian/quarters",
+						datesCalendarsGregorian + "quarters",
 						chr === "Q" ? "format" : "stand-alone",
 						widths[ length - 3 ],
 						ret
@@ -100,7 +101,7 @@ return function( date, pattern, cldr ) {
 					pad = true;
 				} else {
 					ret = cldr.main([
-						"dates/calendars/gregorian/months",
+						datesCalendarsGregorian + "months",
 						chr === "M" ? "format" : "stand-alone",
 						widths[ length - 3 ],
 						ret
@@ -164,19 +165,19 @@ return function( date, pattern, cldr ) {
 					// http://www.unicode.org/reports/tr35/tr35-dates.html#months_days_quarters_eras
 					// http://unicode.org/cldr/trac/ticket/6790
 					ret = cldr.main([
-							"dates/calendars/gregorian/days",
+							datesCalendarsGregorian + "days",
 							[ chr === "c" ? "stand-alone" : "format" ],
 							"short",
 							ret
 						]) || cldr.main([
-							"dates/calendars/gregorian/days",
+							datesCalendarsGregorian + "days",
 							[ chr === "c" ? "stand-alone" : "format" ],
 							"abbreviated",
 							ret
 						]);
 				} else {
 					ret = cldr.main([
-						"dates/calendars/gregorian/days",
+						datesCalendarsGregorian + "days",
 						[ chr === "c" ? "stand-alone" : "format" ],
 						widths[ length < 3 ? 0 : length - 3 ],
 						ret
@@ -187,7 +188,7 @@ return function( date, pattern, cldr ) {
 			// Period (AM or PM)
 			case "a":
 				ret = cldr.main([
-					"dates/calendars/gregorian/dayPeriods/format/wide",
+					datesCalendarsGregorian + "dayPeriods/format/wide",
 					date.getHours() < 12 ? "am" : "pm"
 				]);
 				break;

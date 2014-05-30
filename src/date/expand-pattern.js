@@ -1,4 +1,6 @@
-define(function() {
+define([
+	"../var/string/dates-calendars-gregorian"
+], function( datesCalendarsGregorian ) {
 
 /**
  * expandPattern( pattern, cldr )
@@ -33,7 +35,7 @@ return function( pattern, cldr ) {
 		switch ( true ) {
 			case "skeleton" in pattern:
 				result = cldr.main([
-					"dates/calendars/gregorian/dateTimeFormats/availableFormats",
+					datesCalendarsGregorian + "dateTimeFormats/availableFormats",
 					pattern.skeleton
 				]);
 				break;
@@ -49,17 +51,17 @@ return function( pattern, cldr ) {
 
 			case "datetime" in pattern:
 				result = cldr.main([
-					"dates/calendars/gregorian/dateTimeFormats",
+					datesCalendarsGregorian + "dateTimeFormats",
 					pattern.datetime
 				]);
 				if ( result ) {
 					result = result
 						.replace( /\{0\}/, cldr.main([
-							"dates/calendars/gregorian/timeFormats",
+							datesCalendarsGregorian + "timeFormats",
 							pattern.datetime
 						]))
 						.replace( /\{1\}/, cldr.main([
-							"dates/calendars/gregorian/dateFormats",
+							datesCalendarsGregorian + "dateFormats",
 							pattern.datetime
 						]));
 				}
