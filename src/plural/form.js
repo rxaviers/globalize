@@ -1,6 +1,6 @@
 define([
-	"CLDRPluralRuleParser"
-], function( CLDRPluralRuleParser ) {
+	"makeplural"
+], function( makeplural ) {
 
 /**
  * pluralForm( value, cldr )
@@ -13,16 +13,10 @@ define([
  * value given locale @cldr.
  */
 return function( value, cldr ) {
-	var form,
-		rules = cldr.supplemental( "plurals-type-cardinal/{language}" );
-
-	for ( form in rules ) {
-		if ( CLDRPluralRuleParser( rules[ form ], value ) ) {
-			return form.replace( /pluralRule-count-/, "" );
-		}
-	}
-
-	return null;
+	Plurals.rules = {
+		cardinal: cldr.supplemental( "plurals-type-cardinal" )
+	};
+	return Plurals.build(cldr.attributes.languageId, { "return_function": 1 })(value);
 };
 
 });
