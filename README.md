@@ -316,7 +316,7 @@ formatter( Math.PI );
 ```
 
 Your compiled formatters and parsers allow you to skip a big part of the library
-and loading any CLDR data. Because, they have already been created. If you are
+and to load any CLDR data. Because, they have already been created. If you are
 familiar with templating engines like Handlebars, the idea of deploying
 precompiled bundles may sound familiar.
 
