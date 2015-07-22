@@ -136,15 +136,15 @@ information on its usage.
 
 ### Pick the modules you need
 
-| File | Minified + gzipped size | Summary |
-|---|--:|---|
-| globalize.js | 1.3KB | [Core library](#core-module) |
-| globalize/currency.js | +2.6KB | [Currency module](#currency-module) provides currency formatting and parsing |
-| globalize/date.js | +4.9KB | [Date module](#date-module) provides date formatting and parsing |
-| globalize/message.js | +5.4KB | [Message module](#message-module) provides ICU message format support |
-| globalize/number.js | +2.9KB | [Number module](#number-module) provides number formatting and parsing |
-| globalize/plural.js | +1.7KB | [Plural module](#plural-module) provides pluralization support |
-| globalize/relative-time.js | +0.7KB | [Relative time module](#relative-time-module) provides relative time formatting support |
+| File | Minified + gzipped size | Runtime minified + gzipped size | Summary |
+|---|--:|--:|---|
+| globalize.js | 1.5KB | 1.0KB | [Core library](#core-module) |
+| globalize/currency.js | 2.6KB | 0.6KB | [Currency module](#currency-module) provides currency formatting and parsing |
+| globalize/date.js | 5.1KB | 3.8KB | [Date module](#date-module) provides date formatting and parsing |
+| globalize/message.js | 5.4KB | 0.7KB | [Message module](#message-module) provides ICU message format support |
+| globalize/number.js | 3.1KB | 1.8KB | [Number module](#number-module) provides number formatting and parsing |
+| globalize/plural.js | 2.3KB | 0.4KB | [Plural module](#plural-module) provides pluralization support |
+| globalize/relative-time.js | 0.8KB | 0.6KB | [Relative time module](#relative-time-module) provides relative time formatting support |
 
 ### Browser Support
 
@@ -251,6 +251,81 @@ to you in different flavors):
 - [Hello World (AMD + bower)](examples/amd-bower/).
 - [Hello World (Node.js + npm)](examples/node-npm/).
 - [Hello World (plain JavaScript)](examples/plain-javascript/).
+
+
+### Performance
+
+When formatting or parsing a number (or a currency, or a date, or a message, or
+any other datatype), there's actually a two step process: (a) setup and (b)
+execution, where setup takes considerably more time (more expensive) than
+execution. The difference is an order of magnitude.
+
+In the setup phase, Globalize traverses the CLDR tree and interprets information
+(e.g., processes date patterns, parses plural rules, etc).
+
+
+So, an obvious way to speed up iterations in your code is to generate the
+formatter outside the loop. The same idea is valid for server applications, we
+probably want our formatters to be created in advance, so when requests arrive,
+we can process them quickly by simply executing the formatter. Obviously, this
+is a simple demonstration. Usually, an ICU Message Format goes here instead in a
+real world application, a number format would be an input for a templating
+engine like mustache, handlebars. But, all follows the same idea.
+
+Another distinction between the setup and execution is that all CLDR
+manipulation happens during setup, which can be really handy. For example, any
+missing CLDR error will be thrown as soon as the server is started in this
+example. So, all subsequent client requests are safe from any CLDR manipulation
+error.
+
+
+#### Cache
+
+#### Compilation and the runtime modules
+
+You really should take advantage of compiling your formatters and/or parsers
+during build time when deploying to production. It's much faster than generating
+them in real-time and it's also much smaller (i.e., better loading
+performance).
+
+
+Let's talk a bit about client application. On client side, performance is also
+about how fast our page loads. So, size matters. How to get the smallest and
+leanest bundle for production?
+
+Let's see an example. Suppose we need a plural function for English. This is
+what we need. A function that given a number, outputs the plural form. But, in
+order to get that, we need the English plural rules and the library code to
+parse that rules in order to generate this simple function. In the end, this
+tiny thing is what matters. What if we could precompile that at build time and
+deploy only this tiny function. The good news is that it's possible. All our
+formatters/parsers output the precompiled function. So, by managing that at
+build time, we can remove the need for most of the library at runtime.
+
+The plural function is an extreme example. But, we often can save bytes
+formatting or parsing other stuff too.
+
+If you are familiar with templating engines like Handlebars, the idea of
+deploying precompiled bundles may sound familiar.
+
+
+
+#### How it works
+
+
+
+
+
+#### Using the CLI
+
+    # Install
+    npm install -g globalize-compiler
+
+    # globalize-compiler -l LOCALE [-m MESSAGES_FILE] -o DEST_FILE SRC_FILES...
+    globalize-compiler -l en -m messages/en.json -o app-en.js src/*.js
+
+
+#### Advanced mode
 
 
 ## API
