@@ -293,7 +293,11 @@ To illustrate, a Globalize application looks like:
 <script src="globalize.js"></script>
 <script src="globalize/number.js"></script>
 <script>
-Globalize.load( cldrData );
+Globalize.load({
+  ... cldr data ...
+});
+</script>
+<script>
 Globalize.locale( locale );
 var formatter = Globalize.numberFormatter();
 formatter( Math.PI );
