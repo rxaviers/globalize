@@ -301,7 +301,7 @@ formatter( Math.PI );
 </script>
 ```
 
-A normal Globalize application using the compiled runtime modules, looks like:
+A normal precompiled Globalize application using the runtime modules looks like:
 
 ```html
 <script src="globalize-runtime.js"></script>
@@ -316,33 +316,8 @@ formatter( Math.PI );
 ```
 
 Your compiled formatters and parsers allow you to skip a big part of the library
-and to skip loading any CLDR data.
-
-
-
-
-Let's see an example. Suppose we need a plural function for English. This is
-what we need. A function that given a number, outputs the plural form. But, in
-order to get that, we need the English plural rules and the library code to
-parse that rules in order to generate this simple function. In the end, this
-tiny thing is what matters. What if we could precompile that at build time and
-deploy only this tiny function. The good news is that it's possible. All our
-formatters/parsers output the precompiled function. So, by managing that at
-build time, we can remove the need for most of the library at runtime.
-
-The plural function is an extreme example. But, we often can save bytes
-formatting or parsing other stuff too.
-
-If you are familiar with templating engines like Handlebars, the idea of
-deploying precompiled bundles may sound familiar.
-
-
-
-#### How it works
-
-
-
-
+and to skip loading any CLDR data. If you are familiar with templating engines
+like Handlebars, the idea of deploying precompiled bundles may sound familiar.
 
 #### Using the CLI
 
