@@ -256,39 +256,26 @@ to you in different flavors):
 ### Performance
 
 When formatting or parsing a number (or a currency, or a date, or a message, or
-any other datatype), there's actually a two step process: (a) creation and (b)
-execution, where creation takes considerably more time (more expensive) than
-execution. The difference is an order of magnitude.
+any other datatype), there's actually a two step process: (a) its creation and
+(b) execution, where creation takes considerably more time (more expensive) than
+execution. The difference is an order of magnitude. In the creation phase,
+Globalize traverses the CLDR tree, processes data (e.g., expands date patterns,
+parses plural rules, etc), and returns a function that actually executes the
+formatting or parsing.
 
 ```js
 // Formatter creation.
-var formatter = new Globalize( "en" ).numberFormatter();
+var formatter = Globalize.numberFormatter();
 
-// Formatter execution.
+// Formatter execution (roughly 10x faster than above).
 formatter( Math.PI );
 // > 3.141
 ```
 
-In the setup phase, Globalize traverses the CLDR tree and interprets information
-(e.g., processes date patterns, parses plural rules, etc).
-
-
-So, an obvious way to speed up iterations in your code is to generate the
-formatter outside the loop. The same idea is valid for server applications, we
-probably want our formatters to be created in advance, so when requests arrive,
-we can process them quickly by simply executing the formatter. Obviously, this
-is a simple demonstration. Usually, an ICU Message Format goes here instead in a
-real world application, a number format would be an input for a templating
-engine like mustache, handlebars. But, all follows the same idea.
-
-Another distinction between the setup and execution is that all CLDR
-manipulation happens during setup, which can be really handy. For example, any
-missing CLDR error will be thrown as soon as the server is started in this
-example. So, all subsequent client requests are safe from any CLDR manipulation
-error.
-
-
-#### Cache
+Rules of thumb for optimal performance: cache your formatters and parsers. For
+example: (a) on iterations, generate them outside the loop and reuse while
+looping, (b) on server applications, generate them in advance and execute when
+requests arrive.
 
 #### Compilation and the runtime modules
 
