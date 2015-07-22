@@ -284,7 +284,7 @@ during build time when deploying to production. It's much faster than generating
 them in real-time and it's also much smaller (i.e., better loading
 performance).
 
-To illustrate, a normal Globalize application looks like:
+To illustrate, a Globalize application looks like:
 
 ```html
 <script src="cldrjs/cldr.js"></script>
@@ -301,7 +301,7 @@ formatter( Math.PI );
 </script>
 ```
 
-A normal precompiled Globalize application using the runtime modules looks like:
+A precompiled Globalize application using the runtime modules looks like:
 
 ```html
 <script src="globalize-runtime.js"></script>
