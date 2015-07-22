@@ -256,9 +256,10 @@ to you in different flavors):
 ### Performance
 
 When formatting or parsing a number (or a currency, or a date, or a message, or
-any other datatype), there's actually a two step process: (a) setup and (b)
-execution, where setup takes considerably more time (more expensive) than
-execution. The difference is an order of magnitude.
+any other datatype), there's actually a two step process: (a) setup (e.g., `var
+formatter = new Globalize( "en" ).numberFormatter()`) and (b) execution (e.g.,
+`formatter( Math.PI )`), where setup takes considerably more time (more
+expensive) than execution. The difference is an order of magnitude.
 
 In the setup phase, Globalize traverses the CLDR tree and interprets information
 (e.g., processes date patterns, parses plural rules, etc).
