@@ -272,22 +272,54 @@ formatter( Math.PI );
 // > 3.141
 ```
 
-Rules of thumb for optimal performance: cache your formatters and parsers. For
+A rule of thumb for optimal performance: cache your formatters and parsers. For
 example: (a) on iterations, generate them outside the loop and reuse while
 looping, (b) on server applications, generate them in advance and execute when
 requests arrive.
 
-#### Compilation and the runtime modules
+### Compilation and the Runtime modules
 
 You really should take advantage of compiling your formatters and/or parsers
 during build time when deploying to production. It's much faster than generating
 them in real-time and it's also much smaller (i.e., better loading
 performance).
 
+To illustrate, a normal Globalize application looks like:
 
-Let's talk a bit about client application. On client side, performance is also
-about how fast our page loads. So, size matters. How to get the smallest and
-leanest bundle for production?
+```html
+<script src="cldrjs/cldr.js"></script>
+<script src="cldrjs/cldr/event.js"></script>
+<script src="cldrjs/cldr/supplemental.js"></script>
+<script src="globalize.js"></script>
+<script src="globalize/number.js"></script>
+<script>
+Globalize.load( ... );
+Globalize.locale( <locale> );
+var formatter = Globalize.numberFormatter();
+formatter( Math.PI );
+// > 3.141
+</script>
+```
+
+A normal Globalize application using the compiled runtime modules, looks like:
+
+```html
+<script src="globalize-runtime.js"></script>
+<script src="globalize-runtime/number.js"></script>
+<script src="my-compiled-formatters-and-parsers.js"></script>
+<script>
+Globalize.locale( <locale> );
+var formatter = Globalize.numberFormatter();
+formatter( Math.PI );
+// > 3.141
+</script>
+```
+
+Your compiled formatters and parsers allow you to skip a big part of the library
+and to skip loading any CLDR data.
+
+
+
 
 Let's see an example. Suppose we need a plural function for English. This is
 what we need. A function that given a number, outputs the plural form. But, in
