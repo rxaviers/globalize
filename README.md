@@ -320,8 +320,8 @@ formatter( Math.PI );
 ```
 
 Your compiled formatters and parsers allow you to skip a big part of the library
-and, because they have already been created, you also don't need to load any
-CLDR data.
+and, because they have already been created, you can also skip loading any CLDR
+data.
 
 #### Using the CLI
 
