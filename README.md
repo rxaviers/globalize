@@ -294,7 +294,7 @@ To illustrate, a Globalize application looks like:
 <script src="globalize/number.js"></script>
 <script>
 Globalize.load({
-  ... cldr data ...
+  ... CLDR data ...
 });
 </script>
 <script>
