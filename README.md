@@ -287,20 +287,17 @@ To illustrate, a Globalize application looks like:
 
 ```html
 <script src="cldrjs/cldr.js"></script>
-<script src="cldrjs/cldr/event.js"></script>
-<script src="cldrjs/cldr/supplemental.js"></script>
+<script src="cldrjs/cldr/...js"></script>
 <script src="globalize.js"></script>
 <script src="globalize/number.js"></script>
+<script src="globalize/...js"></script>
 <script>
+// Feed Globalize on CLDR data and on translation messages.
 Globalize.load({
   ... CLDR data ...
 });
-</script>
-<script>
-Globalize.locale( locale );
-var formatter = Globalize.numberFormatter();
-formatter( Math.PI );
-// > 3.141
+
+// Then, use Globalize formatters and parsers.
 </script>
 ```
 
@@ -309,12 +306,10 @@ A precompiled Globalize application using the runtime modules looks like:
 ```html
 <script src="globalize-runtime.js"></script>
 <script src="globalize-runtime/number.js"></script>
+<script src="globalize-runtime/...js"></script>
 <script src="my-compiled-formatters-and-parsers.js"></script>
 <script>
-Globalize.locale( <locale> );
-var formatter = Globalize.numberFormatter();
-formatter( Math.PI );
-// > 3.141
+// Use Globalize formatters and parsers.
 </script>
 ```
 
@@ -322,20 +317,13 @@ Your compiled formatters and parsers allow you to skip a big part of the library
 and, because they have already been created, you can also skip loading any CLDR
 data.
 
-#### Using the CLI
+See our [Basic Globalize Compiler example][].
 
-To generate a JS file with your compiled formatters and parsers, you can use the
-CLI.
+For more information about the Globalize Compiler CLI or its JavaScript API, see
+the [Globalize Compiler documentation][].
 
-    # Install
-    npm install -g globalize-compiler
-
-    # globalize-compiler -l LOCALE [-m MESSAGES_FILE] -o DEST_FILE SRC_FILES...
-    globalize-compiler -l en -m messages/en.json -o my-compiled-formatters-and-parsers.js src/*.js
-
-
-#### Advanced mode
-
+[Basic Globalize Compiler example]: examples/basic-globalize-compiler/
+[Globalize Compiler documentation]: https://github.com/jquery-support/globalize-compiler#README
 
 ## API
 
