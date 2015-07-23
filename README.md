@@ -248,9 +248,9 @@ functionalities, etc.
 
 An example is worth a thousand words. Check out our Hello World demo (available
 to you in different flavors):
-- [Hello World (AMD + bower)](examples/amd-bower/).
-- [Hello World (Node.js + npm)](examples/node-npm/).
-- [Hello World (plain JavaScript)](examples/plain-javascript/).
+- [Hello World (AMD + bower)](examples/hello-world-amd-bower/).
+- [Hello World (Node.js + npm)](examples/hello-world-node-npm/).
+- [Hello World (plain JavaScript)](examples/hello-world-plain-javascript/).
 
 
 ### Performance
@@ -314,15 +314,15 @@ A precompiled Globalize application using the runtime modules looks like:
 ```
 
 Your compiled formatters and parsers allow you to skip a big part of the library
-and, because they have already been created, you can also skip loading any CLDR
-data.
+and also allow you to skip loading CLDR data. Because, they have already been
+created (the (a) phase mentioned on [Performance](#performance) above).
 
 See our [Basic Globalize Compiler example](examples/basic-globalize-compiler/).
 
 #### Globalize Compiler
 
-For more information about the Globalize Compiler CLI or its JavaScript API, see
-the [Globalize Compiler documentation][].
+For information about the Globalize Compiler CLI or its JavaScript API, see the
+[Globalize Compiler documentation][].
 
 [Globalize Compiler documentation]: https://github.com/jquery-support/globalize-compiler#README
 
