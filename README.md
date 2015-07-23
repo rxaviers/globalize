@@ -317,12 +317,13 @@ Your compiled formatters and parsers allow you to skip a big part of the library
 and, because they have already been created, you can also skip loading any CLDR
 data.
 
-See our [Basic Globalize Compiler example][].
+See our [Basic Globalize Compiler example](examples/basic-globalize-compiler/).
+
+#### Globalize Compiler
 
 For more information about the Globalize Compiler CLI or its JavaScript API, see
 the [Globalize Compiler documentation][].
 
-[Basic Globalize Compiler example]: examples/basic-globalize-compiler/
 [Globalize Compiler documentation]: https://github.com/jquery-support/globalize-compiler#README
 
 ## API
