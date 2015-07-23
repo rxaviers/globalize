@@ -255,13 +255,12 @@ to you in different flavors):
 
 ### Performance
 
-When formatting or parsing a number (or a currency, or a date, or a message, or
-any other datatype), there's actually a two step process: (a) its creation and
-(b) execution, where creation takes considerably more time (more expensive) than
-execution. The difference is an order of magnitude. In the creation phase,
-Globalize traverses the CLDR tree, processes data (e.g., expands date patterns,
-parses plural rules, etc), and returns a function that actually executes the
-formatting or parsing.
+When formatting or parsing, there's actually a two step process: (a) the
+formatter (or parser) creation and (b) its execution, where creation takes
+considerably more time (more expensive) than execution. The difference is an
+order of magnitude. In the creation phase, Globalize traverses the CLDR tree,
+processes data (e.g., expands date patterns, parses plural rules, etc), and
+returns a function that actually executes the formatting or parsing.
 
 ```js
 // Formatter creation.
@@ -272,9 +271,9 @@ formatter( Math.PI );
 // > 3.141
 ```
 
-A rule of thumb for optimal performance: cache your formatters and parsers. For
-example: (a) on iterations, generate them outside the loop and reuse while
-looping, (b) on server applications, generate them in advance and execute when
+As a rule of thumb for optimal performance, cache your formatters and parsers.
+For example: (a) on iterations, generate them outside the loop and reuse while
+looping; (b) on server applications, generate them in advance and execute when
 requests arrive.
 
 ### Compilation and the Runtime modules
@@ -325,11 +324,14 @@ data.
 
 #### Using the CLI
 
+To generate a JS file with your compiled formatters and parsers, you can use the
+CLI.
+
     # Install
     npm install -g globalize-compiler
 
     # globalize-compiler -l LOCALE [-m MESSAGES_FILE] -o DEST_FILE SRC_FILES...
-    globalize-compiler -l en -m messages/en.json -o app-en.js src/*.js
+    globalize-compiler -l en -m messages/en.json -o my-compiled-formatters-and-parsers.js src/*.js
 
 
 #### Advanced mode
