@@ -7,8 +7,8 @@ the Globalize Compiler and on the Globalize runtime modules.
 
 ### Development mode
 
-1. Point your browser at `./development.html`. Note that Cldrjs and CLDR data
-are required, because the formatters are created dynamically.
+1. Point your browser at `./development.html`. Note that the formatters are
+created dynamically. Therefore, Cldrjs and CLDR data are required.
 1. Understand the demo by reading the source code. We have comments there for
 you.
 
