@@ -315,7 +315,7 @@ A precompiled Globalize application using the runtime modules looks like:
 
 Your compiled formatters and parsers allow you to skip a big part of the library
 and also allow you to skip loading CLDR data. Because, they have already been
-created (the (a) phase mentioned on [Performance](#performance) above).
+created. This is, the (a) phase mentioned on [Performance](#performance) above.
 
 See our [Basic Globalize Compiler example](examples/basic-globalize-compiler/).
 
