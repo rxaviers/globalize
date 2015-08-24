@@ -27,12 +27,11 @@ define([
 	numberParseProperties, numberPattern, numberSymbol, stringPad ) {
 
 function validateDigits( properties ) {
-	var minimumIntegerDigits = properties[ 2 ];
-	var minimumFractionDigits = properties[ 3 ];
-	var maximumFractionDigits = properties[ 4 ];
-
-	var minimumSignificantDigits = properties[ 5 ];
-	var maximumSignificantDigits = properties[ 6 ];
+	var minimumIntegerDigits = properties[ 2 ],
+		minimumFractionDigits = properties[ 3 ],
+		maximumFractionDigits = properties[ 4 ],
+		minimumSignificantDigits = properties[ 5 ],
+		maximumSignificantDigits = properties[ 6 ];
 
 	// Validate significant digit format properties
 	if ( !isNaN( minimumSignificantDigits * maximumSignificantDigits ) ) {
