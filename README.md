@@ -142,16 +142,16 @@ information on its usage.
 
 ### Pick the modules you need
 
-| File | Minified + gzipped size | Runtime minified + gzipped size | Summary |
-|---|--:|--:|---|
-| globalize.js | 1.5KB | 1.0KB | [Core library](#core-module) |
-| globalize/currency.js | 2.6KB | 0.6KB | [Currency module](#currency-module) provides currency formatting and parsing |
-| globalize/date.js | 5.1KB | 3.8KB | [Date module](#date-module) provides date formatting and parsing |
-| globalize/message.js | 5.4KB | 0.7KB | [Message module](#message-module) provides ICU message format support |
-| globalize/number.js | 3.8KB | 2.1KB | [Number module](#number-module) provides number formatting and parsing |
-| globalize/plural.js | 2.3KB | 0.4KB | [Plural module](#plural-module) provides pluralization support |
-| globalize/relative-time.js | 0.8KB | 0.6KB | [Relative time module](#relative-time-module) provides relative time formatting support |
-| globalize/unit.js | 0.9KB | 0.5KB | [Unit module](#unit-module) provides unit formatting support |
+| File                       | Minified + gzipped size | Runtime minified + gzipped size | Summary                                  |
+| -------------------------- | ----------------------: | ------------------------------: | ---------------------------------------- |
+| globalize.js               |                   1.5KB |                           1.0KB | [Core library](#core-module)             |
+| globalize/currency.js      |                   2.6KB |                           0.6KB | [Currency module](#currency-module) provides currency formatting and parsing |
+| globalize/date.js          |                   5.1KB |                           3.8KB | [Date module](#date-module) provides date formatting and parsing |
+| globalize/message.js       |                   5.4KB |                           0.7KB | [Message module](#message-module) provides ICU message format support |
+| globalize/number.js        |                   3.8KB |                           2.1KB | [Number module](#number-module) provides number formatting and parsing |
+| globalize/plural.js        |                   2.3KB |                           0.4KB | [Plural module](#plural-module) provides pluralization support |
+| globalize/relative-time.js |                   0.8KB |                           0.6KB | [Relative time module](#relative-time-module) provides relative time formatting support |
+| globalize/unit.js          |                   0.9KB |                           0.5KB | [Unit module](#unit-module) provides unit formatting support |
 
 ### Browser Support
 
@@ -201,7 +201,7 @@ Use bower `bower install globalize`, or npm `npm install globalize`.
 *By using source files...*
 
 1. `git clone https://github.com/globalizejs/globalize.git`.
-1. [Build the distribution files](#build).
+2. [Build the distribution files](#build).
 
 ### Requirements
 
@@ -214,16 +214,16 @@ dependencies prior to using it. There is only one external dependency:
 [cldr.js][], which is a CLDR low level manipulation tool. Additionally, you need
 to satisfy the cross-dependencies between modules.
 
-| Module | Dependencies (load in order) |
-|---|---|
-| Core module | [cldr.js][] |
-| Currency module | globalize.js (core), globalize/number.js, and globalize/plural.js (only required for "code" or "name" styles) |
-| Date module | globalize.js (core) and globalize/number.js |
-| Message module | globalize.js (core) and globalize/plural.js (if using messages that need pluralization support) |
-| Number module | globalize.js (core) |
-| Plural | globalize.js (core) |
+| Module               | Dependencies (load in order)             |
+| -------------------- | ---------------------------------------- |
+| Core module          | [cldr.js][]                              |
+| Currency module      | globalize.js (core), globalize/number.js, and globalize/plural.js (only required for "code" or "name" styles) |
+| Date module          | globalize.js (core) and globalize/number.js |
+| Message module       | globalize.js (core) and globalize/plural.js (if using messages that need pluralization support) |
+| Number module        | globalize.js (core)                      |
+| Plural               | globalize.js (core)                      |
 | Relative time module | globalize.js (core), globalize/number.js, and globalize/plural.js |
-| Unit module | globalize.js (core), globalize/number.js, and globalize/plural.js |
+| Unit module          | globalize.js (core), globalize/number.js, and globalize/plural.js |
 
 As an alternative to deducing this yourself, use this [online tool](http://johnnyreilly.github.io/globalize-so-what-cha-want/). The tool allows you to select the modules you're interested in using and tells you the Globalize files *and* CLDR JSON that you need.
 
@@ -241,15 +241,15 @@ Each Globalize function requires a special set of CLDR portions. Once you know
 which Globalize functionalities you need, you can deduce its respective CLDR
 requirements. See table below.
 
-| Module | Required CLDR JSON files |
-|---|---|
-| Core module | cldr/supplemental/likelySubtags.json |
-| Currency module | cldr/main/`locale`/currencies.json<br>cldr/supplemental/currencyData.json<br>+CLDR JSON files from number module<br>+CLDR JSON files from plural module for name style support |
-| Date module | cldr/main/`locale`/ca-gregorian.json<br>cldr/main/`locale`/timeZoneNames.json<br>cldr/supplemental/timeData.json<br>cldr/supplemental/weekData.json<br>+CLDR JSON files from number module |
-| Number module | cldr/main/`locale`/numbers.json<br>cldr/supplemental/numberingSystems.json |
-| Plural module | cldr/supplemental/plurals.json (for cardinals)<br>cldr/supplemental/ordinals.json (for ordinals) |
+| Module               | Required CLDR JSON files                 |
+| -------------------- | ---------------------------------------- |
+| Core module          | cldr/supplemental/likelySubtags.json     |
+| Currency module      | cldr/main/`locale`/currencies.json<br>cldr/supplemental/currencyData.json<br>+CLDR JSON files from number module<br>+CLDR JSON files from plural module for name style support |
+| Date module          | cldr/main/`locale`/ca-gregorian.json<br>cldr/main/`locale`/timeZoneNames.json<br>cldr/supplemental/timeData.json<br>cldr/supplemental/weekData.json<br>+CLDR JSON files from number module |
+| Number module        | cldr/main/`locale`/numbers.json<br>cldr/supplemental/numberingSystems.json |
+| Plural module        | cldr/supplemental/plurals.json (for cardinals)<br>cldr/supplemental/ordinals.json (for ordinals) |
 | Relative time module | cldr/main/`locale`/dateFields.json<br>+CLDR JSON files from number and plural modules |
-| Unit module | cldr/main/`locale`/units.json<br>+CLDR JSON files from number and plural module |
+| Unit module          | cldr/main/`locale`/units.json<br>+CLDR JSON files from number and plural module |
 
 As an alternative to deducing this yourself, use this [online tool](http://johnnyreilly.github.io/globalize-so-what-cha-want/). The tool allows you to select the modules you're interested in using and tells you the Globalize files *and* CLDR JSON that you need.
 
@@ -379,24 +379,24 @@ tend to be shared across significant swaths of the world. In technical terms,
 it's a String composed of three parts: language, script, and region. For
 example:
 
-| locale | description |
-| --- | --- |
+| locale       | description                              |
+| ------------ | ---------------------------------------- |
 | *en-Latn-US* | English as spoken in the Unites States in the Latin script. |
-| *en-US* | English as spoken in the Unites States (Latin script is deduced given it's the most likely script used in this place). |
-| *en* | English (United States region and Latin script are deduced given they are respectively the most likely region and script used in this place). |
-| *en-GB* | English as spoken in the United Kingdom (Latin script is deduced given it's the most likely script used in this place). |
-| *en-IN* | English as spoken in India (Latin script is deduced). |
-| *es* | Spanish (Spain region and Latin script are deduced). |
-| *es-MX* | Spanish as spoken in Mexico (Latin script is deduced). |
-| *zh* | Chinese (China region and Simplified Han script are deduced). |
-| *zh-TW* | Chinese as spoken in Taiwan (Traditional Han script is deduced). |
-| *ja* | Japanese (Japan region and Japanese script are deduced). |
-| *de* | German (Germany region and Latin script are deduced). |
-| *pt* | Portuguese (Brazil region and Latin script are deduced). |
-| *pt-PT* | Portuguese as spoken in Portugal (Latin script is deduced). |
-| *fr* | French (France region and Latin script are deduced). |
-| *ru* | Russian (Russia region and Cyrillic script are deduced). |
-| *ar* | Arabic (Egypt region and Arabic script are deduced). |
+| *en-US*      | English as spoken in the Unites States (Latin script is deduced given it's the most likely script used in this place). |
+| *en*         | English (United States region and Latin script are deduced given they are respectively the most likely region and script used in this place). |
+| *en-GB*      | English as spoken in the United Kingdom (Latin script is deduced given it's the most likely script used in this place). |
+| *en-IN*      | English as spoken in India (Latin script is deduced). |
+| *es*         | Spanish (Spain region and Latin script are deduced). |
+| *es-MX*      | Spanish as spoken in Mexico (Latin script is deduced). |
+| *zh*         | Chinese (China region and Simplified Han script are deduced). |
+| *zh-TW*      | Chinese as spoken in Taiwan (Traditional Han script is deduced). |
+| *ja*         | Japanese (Japan region and Japanese script are deduced). |
+| *de*         | German (Germany region and Latin script are deduced). |
+| *pt*         | Portuguese (Brazil region and Latin script are deduced). |
+| *pt-PT*      | Portuguese as spoken in Portugal (Latin script is deduced). |
+| *fr*         | French (France region and Latin script are deduced). |
+| *ru*         | Russian (Russia region and Cyrillic script are deduced). |
+| *ar*         | Arabic (Egypt region and Arabic script are deduced). |
 
 The likely deductibility is computed by using CLDR data, which is based on the
 population and the suppress-script data in BCP47 (among others). The data is
@@ -624,7 +624,7 @@ Read more details about locale at [UTS#35 locale][].
  Returns a function that formats a relative time according to the given unit, options, and the
  default/instance locale.
 
-  ```javascript
+```javascript
   .relativeTimeFormatter( "day" )( 1 )
   // > "tomorrow"
 
@@ -633,7 +633,7 @@ Read more details about locale at [UTS#35 locale][].
 
   .relativeTimeFormatter( "month" )( 3 )
   // > "in 3 months"
-  ```
+```
 
   [Read more...](doc/api/relative-time/relative-time-formatter.md)
 
@@ -777,7 +777,7 @@ find:
   possible.
 
 [Ongoing work]: https://github.com/globalizejs/globalize/labels/Current%20Sprint
-[Everything else]: https://github.com/globalizejs/globalize/issues?utf8=%E2%9C%93&q=is%3Aopen+-label%3A%22Current+Sprint%22+
+[Everything else]: https://github.com/globalizejs/globalize/issues?utf8=%E2%9C%93&amp;q=is%3Aopen+-label%3A%22Current+Sprint%22+
 
 ## Development
 
