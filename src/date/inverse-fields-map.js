@@ -12,7 +12,7 @@ return {
 	"hour": "hHkK",
 	"minute": "m",
 	"second": "sSA",
-	"zone": "zOxX"
+	"zone": "zvVOxX"
 };
 
 });
