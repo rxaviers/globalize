@@ -91,7 +91,7 @@ Globalize.prototype.dateFormatter = function( options ) {
 
 	cldr.on( "get", validateRequiredCldr );
 	pattern = dateExpandPattern( options, cldr );
-	validateOptionsSkeleton( pattern, options );
+	validateOptionsSkeleton( pattern, options.skeleton );
 	properties = dateFormatProperties( pattern, cldr );
 	cldr.off( "get", validateRequiredCldr );
 
@@ -135,7 +135,7 @@ Globalize.prototype.dateParser = function( options ) {
 
 	cldr.on( "get", validateRequiredCldr );
 	pattern = dateExpandPattern( options, cldr );
-	validateOptionsSkeleton( pattern, options );
+	validateOptionsSkeleton( pattern, options.skeleton );
 	tokenizerProperties = dateTokenizerProperties( pattern, cldr );
 	parseProperties = dateParseProperties( cldr );
 	cldr.off( "get", validateRequiredCldr );
