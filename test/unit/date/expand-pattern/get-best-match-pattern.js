@@ -31,4 +31,22 @@ QUnit.test( "should get best match pattern", function( assert ) {
 	assert.equal( getBestMatchPattern( en, "ccccd" ), "d EEEE" );
 });
 
+QUnit.test( "should be order-proof", function( assert ) {
+	var original = Cldr._resolved.main.en.dates.calendars.gregorian.dateTimeFormats.availableFormats;
+	Cldr._resolved.main.en.dates.calendars.gregorian.dateTimeFormats.availableFormats = {
+		"MMMd": "MMM d",
+		"Md": "M/d"
+	};
+	assert.equal( getBestMatchPattern( en, "MMdd" ), "MM/dd" );
+
+	Cldr._resolved.main.en.dates.calendars.gregorian.dateTimeFormats.availableFormats = {
+		"Md": "M/d",
+		"MMMd": "MMM d"
+	};
+	assert.equal( getBestMatchPattern( en, "MMdd" ), "MM/dd" );
+
+	// Reset it.
+	Cldr._resolved.main.en.dates.calendars.gregorian.dateTimeFormats.availableFormats = original;
+});
+
 });
