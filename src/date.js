@@ -41,22 +41,22 @@ function validateOptionsPreset( options ) {
 	validateOptionsPresetEach( "datetime", options );
 }
 
-function validateOptionsPresetEach( style, options ) {
-	var value = options[ style ];
+function validateOptionsPresetEach( type, options ) {
+	var value = options[ type ];
 	validate(
 		"E_INVALID_OPTIONS",
-		"Invalid `{" + style + ": \"{value}\"}` based on provided CLDR.",
+		"Invalid `{{type}: \"{value}\"}`.",
 		value === undefined || [ "short", "medium", "long", "full" ].indexOf( value ) !== -1,
-		{ value: value }
+		{ type: type, value: value }
 	);
 }
 
 function validateOptionsSkeleton( pattern, skeleton ) {
 	validate(
 		"E_INVALID_OPTIONS",
-		"Invalid `{skeleton: \"{skeleton}\"}` based on provided CLDR.",
+		"Invalid `{skeleton: \"{value}\"}` based on provided CLDR.",
 		skeleton === undefined || ( typeof pattern === "string" && pattern ),
-		{ skeleton: skeleton }
+		{ type: "skeleton", value: skeleton }
 	);
 }
 
