@@ -1063,6 +1063,18 @@ QUnit.test( "should format timezone (z)", function( assert ) {
 		value: "Pacific Daylight Time"
 	}]);
 
+	date = new Date( 2017, 0, 1 );
+	assert.dateFormatWithTimezone( date, "zzzz", "Asia/Dubai", cldr, [{
+		type: "zone",
+		value: "GMT+04:00"
+	}]);
+
+	date = new Date( 2017, 6, 1 );
+	assert.dateFormatWithTimezone( date, "zzzz", "Asia/Dubai", cldr, [{
+		type: "zone",
+		value: "GMT+04:00"
+	}]);
+
 	// Test for two things:
 	// - daylightTzName using the zone data (primary), not the metazone (secondary try);
 	// - standardTzName being undefined, therefore requiring the O fallback properties;

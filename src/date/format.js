@@ -69,7 +69,7 @@ return function( date, numberFormatters, properties ) {
 		//       e.g., "Pacific Standard Time" or "Pacific Daylight Time".
 		if ( chr === "z" ) {
 			if ( date.isDST ) {
-				value = date.isDST() ?  properties.daylightTzName : properties.standardTzName;
+				value = date.isDST() ? properties.daylightTzName : properties.standardTzName;
 			}
 
 			// Fall back to "O" format.

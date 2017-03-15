@@ -49,15 +49,12 @@ return function( pattern, cldr, timeZone ) {
 			"usesMetazone/_mzone"
 		]);
 
-		// return cldr.main([
-		result = cldr.main([
+		return cldr.main([
 			"dates/timeZoneNames/metazone",
 			metaZone,
 			length < 4 ? "short" : "long",
 			type
 		]);
-
-		return result;
 	}
 
 	function setNumberFormatterPattern( pad ) {

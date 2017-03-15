@@ -24,6 +24,13 @@ QUnit.test( "should correctly calculate trasitions and DST", function( assert ) 
 		{ isDST: false }
 	);
 
+	assert.globalizeDate(
+		new Date( "2015-06-13T01:02:03Z" ),
+		zoneData.Asia.Dubai,
+		[ 2015, 6, 12, 22, 2, 3 ],
+		{ isDST: false }
+	);
+
 	// Testing DST edge cases...
 	// BRST
 	assert.globalizeDate(

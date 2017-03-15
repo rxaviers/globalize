@@ -131,7 +131,7 @@ QUnit.test( "should return dayPeriods property for period (a)", function( assert
  *  Zone
  */
 
-QUnit.test( "should return standardTzName and daylightTzName properties for zone (z|zz|zzz|zzzz|zzzzz)",
+QUnit.test( "should return standardTzName and daylightTzName properties for zone (z|zz|zzz|zzzz)",
 		function( assert ) {
 	var timeZone,
 		enGb = new Cldr( "en-GB" );
@@ -141,9 +141,28 @@ QUnit.test( "should return standardTzName and daylightTzName properties for zone
 		assert.equal( properties( pattern, cldr, timeZone ).standardTzName, "PST" );
 		assert.equal( properties( pattern, cldr, timeZone ).daylightTzName, "PDT" );
 	});
-	[ "zzzz", "zzzzz" ].forEach(function( pattern ) {
+	[ "zzzz" ].forEach(function( pattern ) {
 		assert.equal( properties( pattern, cldr, timeZone ).standardTzName, "Pacific Standard Time" );
 		assert.equal( properties( pattern, cldr, timeZone ).daylightTzName, "Pacific Daylight Time" );
+	});
+
+	// Test for ??:
+	timeZone = "Asia/Dubai";
+	[ "z", "zz", "zzz" ].forEach(function( pattern ) {
+		var formatProperties = properties( pattern, cldr, timeZone );
+		assert.ok( !( "standardTzName" in formatProperties ) );
+		assert.ok( !( "daylightTzName" in formatProperties ) );
+		assert.ok( "gmtFormat" in formatProperties );
+		assert.ok( "gmtZeroFormat" in formatProperties );
+		assert.ok( "tzLongHourFormat" in formatProperties );
+	});
+	[ "zzzz" ].forEach(function( pattern ) {
+		var formatProperties = properties( pattern, cldr, timeZone );
+		assert.equal( formatProperties.standardTzName, "Gulf Standard Time" );
+		assert.ok( !( "daylightTzName" in formatProperties ) );
+		assert.ok( "gmtFormat" in formatProperties );
+		assert.ok( "gmtZeroFormat" in formatProperties );
+		assert.ok( "tzLongHourFormat" in formatProperties );
 	});
 
 	// Test for two things:
@@ -158,7 +177,7 @@ QUnit.test( "should return standardTzName and daylightTzName properties for zone
 		assert.ok( "gmtZeroFormat" in formatProperties );
 		assert.ok( "tzLongHourFormat" in formatProperties );
 	});
-	[ "zzzz", "zzzzz" ].forEach(function( pattern ) {
+	[ "zzzz" ].forEach(function( pattern ) {
 		var formatProperties = properties( pattern, enGb, timeZone );
 		assert.ok( !( "standardTzName" in formatProperties ) );
 		assert.equal( formatProperties.daylightTzName, "British Summer Time" );
