@@ -9,11 +9,12 @@ define([
 	"json!cldr-data/supplemental/timeData.json",
 	"json!cldr-data/supplemental/weekData.json",
 	"json!cldr-data/supplemental/metaZones.json",
+	"json!iana-tz-data.json",
 
 	"cldr/event",
 	"cldr/supplemental"
 ], function( Cldr, properties, enCaGregorian, enTimeZoneNames, enGbCaGregorian, enGbTimeZoneNames,
-	likelySubtags, timeData, weekData, metaZones ) {
+	likelySubtags, timeData, weekData, metaZones, ianaTimezoneData ) {
 
 var cldr;
 
@@ -27,6 +28,11 @@ Cldr.load(
 	weekData,
 	metaZones
 );
+
+// Needed for globalizeDate.
+Cldr.load({
+	"globalize-iana": ianaTimezoneData
+});
 
 cldr = new Cldr( "en" );
 
@@ -210,6 +216,14 @@ QUnit.test( "should return timeZoneName properties for zone (VV|VVV|VVVV)", func
 
 	pattern = "VVVV";
 	assert.equal( properties( pattern, cldr, timeZone ).timeZoneName, "Los Angeles Time" );
+});
+
+QUnit.test( "should return timeZoneData properties when using timeZone for any pattern", function( assert ) {
+	var formatProperties = properties( "d", cldr, "America/Los_Angeles" );
+	assert.ok( "timeZoneData" in formatProperties );
+	assert.ok( "offsets" in formatProperties.timeZoneData );
+	assert.ok( "untils" in formatProperties.timeZoneData );
+	assert.ok( "isdsts" in formatProperties.timeZoneData );
 });
 
 });

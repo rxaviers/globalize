@@ -64,7 +64,8 @@ return function( pattern, cldr, timeZone ) {
 	if ( timeZone ) {
 		properties.timeZoneData = {
 			offsets: cldr.get([ "globalize-iana/zoneData", timeZone, "offsets" ]),
-			untils: cldr.get([ "globalize-iana/zoneData", timeZone, "untils" ])
+			untils: cldr.get([ "globalize-iana/zoneData", timeZone, "untils" ]),
+			isdsts: cldr.get([ "globalize-iana/zoneData", timeZone, "isdsts" ])
 		};
 	}
 

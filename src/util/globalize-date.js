@@ -1,18 +1,32 @@
 define( function() {
 
+function getUntilsIndex( original, untils ) {
+	var index = 0,
+		originalTime = original.getTime();
+
+	// TODO Should we do binary search for improved performance?
+	while ( index < untils.length - 1 && originalTime >= untils[ index ] ) {
+		index++;
+	}
+	return index;
+}
+
 var GlobalizeDate = function( date, timeZoneData ) {
 	this.original = new Date( date.getTime() );
 	this.local = new Date( date.getTime() );
 	this.isGloblizeDate = true;
 	this.timeZoneData = timeZoneData;
-	this.setTime( this.local.getTime() - this.getTimeZoneAdjustment() * 60 * 1000 );
+	if ( !( timeZoneData.untils && timeZoneData.offsets && timeZoneData.isdsts ) ) {
+		throw new Error( "macacos robin" );
+	}
+	this.setTime( this.local.getTime() - this.getTimezoneOffset() * 60 * 1000 );
 };
 
 GlobalizeDate.prototype.setWrap = function( fn ) {
-	var offset1 = this.getTimeZoneAdjustment();
+	var offset1 = this.getTimezoneOffset();
 	var ret = fn();
 	this.original = new Date( this.getTime() );
-	var offset2 = this.getTimeZoneAdjustment();
+	var offset2 = this.getTimezoneOffset();
 	this.original.setMinutes( this.original.getMinutes() + offset2 - offset1 );
 	return ret;
 };
@@ -54,11 +68,12 @@ GlobalizeDate.prototype.getMilliseconds = function() {
 };
 
 GlobalizeDate.prototype.getTime = function() {
-	return this.local.getTime() + this.getTimeZoneAdjustment() * 60 * 1000;
+	return this.local.getTime() + this.getTimezoneOffset() * 60 * 1000;
 };
 
 GlobalizeDate.prototype.getTimezoneOffset = function() {
-	return this.getTimeZoneAdjustment();
+	var index = getUntilsIndex( this.original, this.timeZoneData.untils );
+	return this.timeZoneData.offsets[ index ];
 };
 
 GlobalizeDate.prototype.setFullYear = function( year ) {
@@ -119,32 +134,8 @@ GlobalizeDate.prototype.setTime = function( time ) {
 };
 
 GlobalizeDate.prototype.isDST = function() {
-	return this.getStdOffset() !== -this.getTimeZoneAdjustment();
-};
-
-GlobalizeDate.prototype.getStdOffset = function() {
-	var offsetsLength = this.timeZoneData.offsets.length,
-		stdOffset = -1;
-	if ( offsetsLength > 1 ) {
-		stdOffset *= Math.max(
-			this.timeZoneData.offsets[ offsetsLength - 1 ],
-			this.timeZoneData.offsets[ offsetsLength - 2 ]
-		);
-	} else {
-		stdOffset *= this.timeZoneData.offsets[ this.timeZoneData.offsets.length - 1 ];
-	}
-	return stdOffset;
-};
-
-GlobalizeDate.prototype.getTimeZoneAdjustment = function() {
-	var index = 0;
-
-	// TODO Should we do binary search for improved performance?
-	while ( index < this.timeZoneData.untils.length - 1 &&
-				this.original.getTime() >= this.timeZoneData.untils[ index ] ) {
-		index++;
-	}
-	return index === 0 ? 0 : this.timeZoneData.offsets[ index ];
+	var index = getUntilsIndex( this.original, this.timeZoneData.untils );
+	return Boolean( this.timeZoneData.isdsts[ index ] );
 };
 
 return GlobalizeDate;

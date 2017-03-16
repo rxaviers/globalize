@@ -89,11 +89,13 @@ Cldr.load({
 			"Foo": {
 				"Bar": {
 					offsets: ianaTimezoneData.zoneData.UTC.offsets,
-					untils: ianaTimezoneData.zoneData.UTC.untils
+					untils: ianaTimezoneData.zoneData.UTC.untils,
+					isdsts: ianaTimezoneData.zoneData.UTC.isdsts
 				},
 				"Baz": {
 					offsets: ianaTimezoneData.zoneData.UTC.offsets,
-					untils: ianaTimezoneData.zoneData.UTC.untils
+					untils: ianaTimezoneData.zoneData.UTC.untils,
+					isdsts: ianaTimezoneData.zoneData.UTC.isdsts
 				}
 			}
 		}
@@ -1066,13 +1068,13 @@ QUnit.test( "should format timezone (z)", function( assert ) {
 	date = new Date( 2017, 0, 1 );
 	assert.dateFormatWithTimezone( date, "zzzz", "Asia/Dubai", cldr, [{
 		type: "zone",
-		value: "GMT+04:00"
+		value: "Gulf Standard Time"
 	}]);
 
 	date = new Date( 2017, 6, 1 );
 	assert.dateFormatWithTimezone( date, "zzzz", "Asia/Dubai", cldr, [{
 		type: "zone",
-		value: "GMT+04:00"
+		value: "Gulf Standard Time"
 	}]);
 
 	// Test for two things:
