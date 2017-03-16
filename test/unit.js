@@ -18,6 +18,7 @@ require([
 
 	// date
 	"./unit/date/expand-pattern/augment-format",
+	"./unit/date/expand-pattern/compare-formats",
 	"./unit/date/expand-pattern/get-best-match-pattern",
 	"./unit/date/expand-pattern",
 	"./unit/date/timezone-hour-format",
