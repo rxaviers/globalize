@@ -262,9 +262,19 @@ return function( date, numberFormatters, properties ) {
 				if ( date.getTimezoneOffset() === 0 ) {
 					value = properties.gmtZeroFormat;
 				} else {
+
+					// If O..OOO and timezone offset has non-zero minutes, use OOOO (i.e., show
+					// minutes).
+					aux = date.getTimezoneOffset();
+					if ( length < 4 && aux % 60 - aux % 1 !== 0 ) {
+						aux = 1;
+					} else {
+						aux = length < 4 ? 0 : 2;
+					}
+
 					value = dateTimezoneHourFormat(
 						date,
-						length < 4 ? "+H;-H" : properties.tzLongHourFormat,
+						properties.tzHourFormat[ aux ],
 						timeSeparator,
 						numberFormatters
 					);
