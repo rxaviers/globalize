@@ -1,9 +1,10 @@
 define([
 	"./pattern-re",
+	"../util/loose-matching",
 	"../util/regexp/escape",
 	"../util/regexp/n",
 	"../util/remove-literal-quotes"
-], function( datePatternRe, regexpEscape, regexpN, removeLiteralQuotes ) {
+], function( datePatternRe, looseMatching, regexpEscape, regexpN, removeLiteralQuotes ) {
 
 /**
  * tokenizer( value, pattern, properties )
@@ -49,6 +50,8 @@ return function( value, numberParser, properties ) {
 			return memo + "|" + item;
 		}) + ")";
 	}
+
+	value = looseMatching( value );
 
 	valid = properties.pattern.match( datePatternRe ).every(function( current ) {
 		var aux, chr, length, numeric, tokenRe,
@@ -153,16 +156,21 @@ return function( value, numberParser, properties ) {
 		// Brute-force test every locale entry in an attempt to match the given value.
 		// Return the first found one (and set token accordingly), or null.
 		function lookup( path ) {
-			var i, re,
-				data = properties[ path.join( "/" ) ];
+			var array = properties[ path.join( "/" ) ];
 
-			for ( i in data ) {
-				re = new RegExp( "^" + data[ i ] );
-				if ( re.test( value ) ) {
-					token.value = i;
-					return tokenRe = new RegExp( data[ i ] );
-				}
+			if ( !array ) {
+				return null;
 			}
+
+			// array of pairs [key, value] sorted by desc value length.
+			array.some(function( item ) {
+				var valueRe = item[ 1 ];
+				if ( valueRe.test( value ) ) {
+					token.value = item[ 0 ];
+					tokenRe = item[ 1 ];
+					return true;
+				}
+			});
 			return null;
 		}
 
