@@ -316,6 +316,10 @@ return function( pattern, cldr, timeZone ) {
 					}
 				}
 
+				if ( current === "v" ) {
+					length = 1;
+				}
+
 			/* falls through */
 			case "O":
 
@@ -327,11 +331,9 @@ return function( pattern, cldr, timeZone ) {
 				// Unofficial deduction of the hourFormat variations.
 				// Official spec is pending resolution: http://unicode.org/cldr/trac/ticket/8293
 				aux = cldr.main( "dates/timeZoneNames/hourFormat" );
-				properties.tzHourFormat = [
-					dateTimezoneHourFormatH( aux ),
-					dateTimezoneHourFormatHm( aux, "H" ),
-					dateTimezoneHourFormatHm( aux, "HH" )
-				];
+				properties.hourFormat = length < 4 ?
+					[ dateTimezoneHourFormatH( aux ), dateTimezoneHourFormatHm( aux, "H" ) ] :
+					dateTimezoneHourFormatHm( aux, "HH" );
 
 			/* falls through */
 			case "Z":
