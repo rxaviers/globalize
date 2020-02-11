@@ -53,7 +53,7 @@ function esPluralGenerator( n ) {
  */
 
 QUnit.test( "should format integers", function( assert ) {
-	assert.equal( format( pi, properties( "#0", en ) ), "3" );
+	assert.deepEqual( format( pi, properties( "#0", en ) ), [{type: "", value: "3"}] );
 	assert.equal( format( pi, properties( "###0", en ) ), "3" );
 });
 

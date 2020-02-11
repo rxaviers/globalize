@@ -11,15 +11,16 @@ define([
 	"./currency/formatter-fn",
 	"./currency/name-properties",
 	"./currency/symbol-properties",
+	"./currency/to-parts-formatter-fn",
 	"./util/object/omit",
-
 	"./number",
+
 	"cldr/event",
 	"cldr/supplemental"
 ], function( Globalize, runtimeBind, validateCldr, validateDefaultLocale, validateParameterPresence,
 	validateParameterTypeCurrency, validateParameterTypeNumber, validateParameterTypePlainObject,
 	currencyCodeProperties, currencyFormatterFn, currencyNameProperties, currencySymbolProperties,
-	objectOmit ) {
+	currencyToPartsFormatterFn, objectOmit ) {
 
 function validateRequiredCldr( path, value ) {
 	validateCldr( path, value, {
@@ -44,6 +45,44 @@ function validateRequiredCldr( path, value ) {
  */
 Globalize.currencyFormatter =
 Globalize.prototype.currencyFormatter = function( currency, options ) {
+	var args, currencyToPartsFormatter, returnFn;
+
+	validateParameterPresence( currency, "currency" );
+	validateParameterTypeCurrency( currency, "currency" );
+
+	validateParameterTypePlainObject( options, "options" );
+
+	options = options || {};
+	args = [ options ];
+
+	currencyToPartsFormatter = this.currencyToPartsFormatter( options );
+	returnFn = currencyFormatterFn( currencyToPartsFormatter );
+	runtimeBind( args, this.cldr, returnFn, [ currencyToPartsFormatter ] );
+
+	return returnFn;
+};
+
+/**
+ * .currencyToPartsFormatter( currency [, options] )
+ *
+ * @currency [String] 3-letter currency code as defined by ISO 4217.
+ *
+ * @options [Object]:
+ * - style: [String] "symbol" (default), "accounting", "code" or "name".
+ * - see also number/format options.
+ *
+ * Return a currency formatter function (of the form below) according to the given options and the
+ * default/instance locale.
+ *
+ * fn( value )
+ *
+ * @value [Number]
+ *
+ * Return a function that formats a currency to parts according to the given options
+ * and the default/instance locale.
+ */
+Globalize.currencyToPartsFormatter =
+Globalize.prototype.currencyToPartsFormatter = function( currency, options ) {
 	var args, cldr, numberFormatter, pluralGenerator, properties, returnFn, style;
 
 	validateParameterPresence( currency, "currency" );
@@ -77,7 +116,7 @@ Globalize.prototype.currencyFormatter = function( currency, options ) {
 	if ( style === "symbol" || style === "accounting" ) {
 		numberFormatter = this.numberFormatter( options );
 
-		returnFn = currencyFormatterFn( numberFormatter );
+		returnFn = currencyToPartsFormatterFn( numberFormatter );
 
 		runtimeBind( args, cldr, returnFn, [ numberFormatter ] );
 
@@ -86,7 +125,7 @@ Globalize.prototype.currencyFormatter = function( currency, options ) {
 		numberFormatter = this.numberFormatter( options );
 		pluralGenerator = this.pluralGenerator();
 
-		returnFn = currencyFormatterFn( numberFormatter, pluralGenerator, properties );
+		returnFn = currencyToPartsFormatterFn( numberFormatter, pluralGenerator, properties );
 
 		runtimeBind( args, cldr, returnFn, [ numberFormatter, pluralGenerator, properties ] );
 	}
@@ -127,6 +166,25 @@ Globalize.prototype.formatCurrency = function( value, currency, options ) {
 	validateParameterTypeNumber( value, "value" );
 
 	return this.currencyFormatter( currency, options )( value );
+};
+
+/**
+ * .formatCurrencyToParts( value, currency [, options] )
+ *
+ * @value [Number] number to be formatted.
+ *
+ * @currency [String] 3-letter currency code as defined by ISO 4217.
+ *
+ * @options [Object] see currencyFormatter.
+ *
+ * Format a currency to parts according to the given options and the default/instance locale.
+ */
+Globalize.formatCurrencyToParts =
+Globalize.prototype.formatCurrencyToParts = function( value, currency, options ) {
+	validateParameterPresence( value, "value" );
+	validateParameterTypeNumber( value, "value" );
+
+	return this.currencyToPartsFormatter( currency, options )( value );
 };
 
 /**

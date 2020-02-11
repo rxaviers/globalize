@@ -4,10 +4,11 @@ define([
 	"./format/integer-fraction-digits",
 	"./format/significant-digits",
 	"./pattern-re",
+	"./symbol/name",
 	"../util/remove-literal-quotes"
 ], function( numberCompactPatternRe, numberFormatGroupingSeparator,
 	numberFormatIntegerFractionDigits, numberFormatSignificantDigits, numberPatternRe,
-	removeLiteralQuotes ) {
+	numberSymbolName, removeLiteralQuotes ) {
 
 /**
  * format( number, properties )
@@ -22,7 +23,7 @@ define([
 return function( number, properties, pluralGenerator ) {
 	var compactMap, infinitySymbol, maximumFractionDigits, maximumSignificantDigits,
 	minimumFractionDigits, minimumIntegerDigits, minimumSignificantDigits, nanSymbol, nuDigitsMap,
-	padding, prefix, primaryGroupingSize, pattern, ret, round, roundIncrement,
+	numberType, padding, prefix, primaryGroupingSize, parts, pattern, ret, round, roundIncrement,
 	secondaryGroupingSize, suffix, symbolMap;
 
 	padding = properties[ 1 ];
@@ -40,6 +41,8 @@ return function( number, properties, pluralGenerator ) {
 	symbolMap = properties[ 18 ];
 	nuDigitsMap = properties[ 19 ];
 	compactMap = properties[ 20 ];
+
+	parts = [];
 
 	// NaN
 	if ( isNaN( number ) ) {
@@ -137,27 +140,44 @@ return function( number, properties, pluralGenerator ) {
 
 	ret += suffix;
 
-	return ret.replace( /('([^']|'')+'|'')|./g, function( character, literal ) {
+	numberType = "integer";
+	ret.replace( /('([^']|'')+'|'')|./g, function( character, literal ) {
 
 		// Literals
 		if ( literal ) {
-			return removeLiteralQuotes( literal );
+			parts.push({
+				type: "literal",
+				value: removeLiteralQuotes( literal )
+			});
+			return;
 		}
 
 		// Symbols
 		character = character.replace( /[.,\-+E%\u2030]/, function( symbol ) {
-			return symbolMap[ symbol ];
+			if ( symbol === "." ) {
+				numberType = "fraction";
+			}
+			parts.push({
+				type: numberSymbolName[symbol],
+				value: symbolMap[ symbol ]
+			});
+			return;
 		});
 
 		// Numbering system
 		if ( nuDigitsMap ) {
 			character = character.replace( /[0-9]/, function( digit ) {
-				return nuDigitsMap[ +digit ];
+				parts.push({
+					type: numberType,
+					value: nuDigitsMap[ +digit ]
+				});
+				return;
 			});
 		}
-
-		return character;
+		throw new Error( "Oops " + character );
 	});
+
+	return parts;
 };
 
 });
