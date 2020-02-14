@@ -8,7 +8,6 @@ define([
 	"./common/validate/parameter-type/currency",
 	"./common/validate/parameter-type/number",
 	"./common/validate/parameter-type/plain-object",
-	"./currency/code-properties",
 	"./currency/formatter-fn",
 	"./currency/name-properties",
 	"./currency/symbol-properties",
@@ -20,9 +19,8 @@ define([
 	"cldr/supplemental"
 ], function( Globalize, createErrorPluralModulePresence, runtimeBind, validateCldr,
 	validateDefaultLocale, validateParameterPresence, validateParameterTypeCurrency,
-	validateParameterTypeNumber, validateParameterTypePlainObject, currencyCodeProperties,
-	currencyFormatterFn, currencyNameProperties, currencySymbolProperties, currencyToPartsFormatterFn,
-	objectOmit ) {
+	validateParameterTypeNumber, validateParameterTypePlainObject, currencyFormatterFn,
+	currencyNameProperties, currencySymbolProperties, currencyToPartsFormatterFn, objectOmit ) {
 
 function validateRequiredCldr( path, value ) {
 	validateCldr( path, value, {
