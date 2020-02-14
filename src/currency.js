@@ -104,7 +104,7 @@ Globalize.prototype.currencyToPartsFormatter = function( currency, options ) {
 	cldr.on( "get", validateRequiredCldr );
 	properties = ({
 		accounting: currencySymbolProperties,
-		code: currencyCodeProperties,
+		code: currencySymbolProperties,
 		name: currencyNameProperties,
 		symbol: currencySymbolProperties
 	}[ style ] )( currency, cldr, options );
@@ -114,15 +114,15 @@ Globalize.prototype.currencyToPartsFormatter = function( currency, options ) {
 	options = objectOmit( options, "style" );
 	options.raw = properties.pattern;
 
-	// Return formatter when style is "symbol" or "accounting".
-	if ( style === "symbol" || style === "accounting" ) {
+	// Return formatter when style is "symbol", "accounting", or "code".
+	if ( style === "symbol" || style === "accounting" || style === "code" ) {
 		numberToPartsFormatter = this.numberToPartsFormatter( options );
 
 		returnFn = currencyToPartsFormatterFn( numberToPartsFormatter, properties.symbol );
 
 		runtimeBind( args, cldr, returnFn, [ numberToPartsFormatter, properties.symbol ] );
 
-	// Return formatter when style is "code" or "name".
+	// Return formatter when style is "name".
 	} else {
 		numberToPartsFormatter = this.numberToPartsFormatter( options );
 

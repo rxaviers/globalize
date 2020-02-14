@@ -19,6 +19,7 @@ return function( formattedNumber, pluralForm, properties ) {
 	unitPattern = unitPatterns[ "unitPattern-count-" + pluralForm ] ||
 		unitPatterns[ "unitPattern-count-other" ];
 
+	// FIXME formatMessage to parts
 	return {
 		type: "literal",
 		value: formatMessage( unitPattern, [ formattedNumber, displayName ])
