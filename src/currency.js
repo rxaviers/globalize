@@ -1,5 +1,6 @@
 define([
 	"./core",
+	"./common/create-error/plural-module-presence",
 	"./common/runtime-bind",
 	"./common/validate/cldr",
 	"./common/validate/default-locale",
@@ -17,10 +18,11 @@ define([
 
 	"cldr/event",
 	"cldr/supplemental"
-], function( Globalize, runtimeBind, validateCldr, validateDefaultLocale, validateParameterPresence,
-	validateParameterTypeCurrency, validateParameterTypeNumber, validateParameterTypePlainObject,
-	currencyCodeProperties, currencyFormatterFn, currencyNameProperties, currencySymbolProperties,
-	currencyToPartsFormatterFn, objectOmit ) {
+], function( Globalize, createErrorPluralModulePresence, runtimeBind, validateCldr,
+	validateDefaultLocale, validateParameterPresence, validateParameterTypeCurrency,
+	validateParameterTypeNumber, validateParameterTypePlainObject, currencyCodeProperties,
+	currencyFormatterFn, currencyNameProperties, currencySymbolProperties, currencyToPartsFormatterFn,
+	objectOmit ) {
 
 function validateRequiredCldr( path, value ) {
 	validateCldr( path, value, {
@@ -123,7 +125,11 @@ Globalize.prototype.currencyToPartsFormatter = function( currency, options ) {
 	// Return formatter when style is "code" or "name".
 	} else {
 		numberToPartsFormatter = this.numberToPartsFormatter( options );
-		pluralGenerator = this.pluralGenerator();
+
+		// Is plural module present? Yes, use its generator. Nope, use an error generator.
+		pluralGenerator = this.plural !== undefined ?
+			this.pluralGenerator() :
+			createErrorPluralModulePresence;
 
 		returnFn = currencyToPartsFormatterFn( numberToPartsFormatter, pluralGenerator, properties );
 
