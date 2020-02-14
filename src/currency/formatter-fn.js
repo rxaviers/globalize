@@ -1,10 +1,10 @@
-define(function() {
+define([
+	"../util/parts/join"
+], function( partsJoin ) {
 
 return function( currencyToPartsFormatter ) {
 	return function currencyFormatter( value ) {
-		return currencyToPartsFormatter( value ).map( function( part ) {
-			return part.value;
-		}).join( "" );
+		return partsJoin(currencyToPartsFormatter( value ));
 	};
 };
 

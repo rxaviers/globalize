@@ -5,10 +5,11 @@ define([
 	"./format/significant-digits",
 	"./pattern-re",
 	"./symbol/name",
+	"../util/parts/push",
 	"../util/remove-literal-quotes"
 ], function( numberCompactPatternRe, numberFormatGroupingSeparator,
 	numberFormatIntegerFractionDigits, numberFormatSignificantDigits, numberPatternRe,
-	numberSymbolName, removeLiteralQuotes ) {
+	numberSymbolName, partsPush, removeLiteralQuotes ) {
 
 /**
  * format( number, properties )
@@ -145,10 +146,13 @@ return function( number, properties, pluralGenerator ) {
 
 		// Literals
 		if ( literal ) {
-			parts.push({
-				type: "literal",
-				value: removeLiteralQuotes( literal )
-			});
+			partsPush( parts, "literal", removeLiteralQuotes( literal ) );
+			return;
+		}
+
+		// Currency symbol
+		if (character === "\u00A4") {
+			partsPush( parts, "currency", character );
 			return;
 		}
 
@@ -157,24 +161,29 @@ return function( number, properties, pluralGenerator ) {
 			if ( symbol === "." ) {
 				numberType = "fraction";
 			}
-			parts.push({
-				type: numberSymbolName[symbol],
-				value: symbolMap[ symbol ]
-			});
-			return;
+			partsPush( parts, numberSymbolName[symbol], symbolMap[ symbol ] );
+
+			// "Erase" handled character.
+			return "";
 		});
 
-		// Numbering system
-		if ( nuDigitsMap ) {
-			character = character.replace( /[0-9]/, function( digit ) {
-				parts.push({
-					type: numberType,
-					value: nuDigitsMap[ +digit ]
-				});
-				return;
-			});
-		}
-		throw new Error( "Oops " + character );
+		// Number
+		character = character.replace( /[0-9]/, function( digit ) {
+
+			// Numbering system
+			if ( nuDigitsMap ) {
+				digit = nuDigitsMap[ +digit ];
+			}
+			partsPush( parts, numberType, digit );
+
+			// "Erase" handled character.
+			return "";
+		});
+
+		// Etc
+		character.replace( /./, function( etc ) {
+			partsPush( parts, "literal", etc );
+		});
 	});
 
 	return parts;

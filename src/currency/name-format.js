@@ -19,7 +19,10 @@ return function( formattedNumber, pluralForm, properties ) {
 	unitPattern = unitPatterns[ "unitPattern-count-" + pluralForm ] ||
 		unitPatterns[ "unitPattern-count-other" ];
 
-	return formatMessage( unitPattern, [ formattedNumber, displayName ]);
+	return {
+		type: "literal",
+		value: formatMessage( unitPattern, [ formattedNumber, displayName ])
+	};
 };
 
 });

@@ -72,11 +72,12 @@ return function( currency, cldr, options ) {
 				}
 
 				return ( i ? insertBetween : "" ) + part + ( i ? "" : insertBetween );
-			}).join( "'" + symbol + "'" );
+			}).join( "\u00A4" );
 		}).join( ";" );
 
 	return {
-		pattern: pattern
+		pattern: pattern,
+		symbol: symbol
 	};
 };
 

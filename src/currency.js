@@ -83,7 +83,7 @@ Globalize.prototype.currencyFormatter = function( currency, options ) {
  */
 Globalize.currencyToPartsFormatter =
 Globalize.prototype.currencyToPartsFormatter = function( currency, options ) {
-	var args, cldr, numberFormatter, pluralGenerator, properties, returnFn, style;
+	var args, cldr, numberToPartsFormatter, pluralGenerator, properties, returnFn, style;
 
 	validateParameterPresence( currency, "currency" );
 	validateParameterTypeCurrency( currency, "currency" );
@@ -114,20 +114,20 @@ Globalize.prototype.currencyToPartsFormatter = function( currency, options ) {
 
 	// Return formatter when style is "symbol" or "accounting".
 	if ( style === "symbol" || style === "accounting" ) {
-		numberFormatter = this.numberFormatter( options );
+		numberToPartsFormatter = this.numberToPartsFormatter( options );
 
-		returnFn = currencyToPartsFormatterFn( numberFormatter );
+		returnFn = currencyToPartsFormatterFn( numberToPartsFormatter, properties.symbol );
 
-		runtimeBind( args, cldr, returnFn, [ numberFormatter ] );
+		runtimeBind( args, cldr, returnFn, [ numberToPartsFormatter, properties.symbol ] );
 
 	// Return formatter when style is "code" or "name".
 	} else {
-		numberFormatter = this.numberFormatter( options );
+		numberToPartsFormatter = this.numberToPartsFormatter( options );
 		pluralGenerator = this.pluralGenerator();
 
-		returnFn = currencyToPartsFormatterFn( numberFormatter, pluralGenerator, properties );
+		returnFn = currencyToPartsFormatterFn( numberToPartsFormatter, pluralGenerator, properties );
 
-		runtimeBind( args, cldr, returnFn, [ numberFormatter, pluralGenerator, properties ] );
+		runtimeBind( args, cldr, returnFn, [ numberToPartsFormatter, pluralGenerator, properties ] );
 	}
 
 	return returnFn;
