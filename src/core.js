@@ -15,6 +15,8 @@ define([
 	"./util/always-cldr",
 	"./util/is-plain-object",
 	"./util/object/extend",
+	"./util/parts/join",
+	"./util/parts/push",
 	"./util/regexp/escape",
 	"./util/string/pad",
 
@@ -22,7 +24,7 @@ define([
 ], function( Cldr, createError, formatMessage, runtimeBind, validate, validateCldr,
 	validateDefaultLocale, validateParameterPresence, validateParameterRange, validateParameterType,
 	validateParameterTypeLocale, validateParameterTypePlainObject, alwaysArray, alwaysCldr,
-	isPlainObject, objectExtend, regexpEscape, stringPad ) {
+	isPlainObject, objectExtend, partsJoin, partsPush, regexpEscape, stringPad ) {
 
 function validateLikelySubtags( cldr ) {
 	cldr.once( "get", validateCldr );
@@ -94,6 +96,8 @@ Globalize._createError = createError;
 Globalize._formatMessage = formatMessage;
 Globalize._isPlainObject = isPlainObject;
 Globalize._objectExtend = objectExtend;
+Globalize._partsJoin = partsJoin;
+Globalize._partsPush = partsPush;
 Globalize._regexpEscape = regexpEscape;
 Globalize._runtimeBind = runtimeBind;
 Globalize._stringPad = stringPad;

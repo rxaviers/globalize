@@ -1,6 +1,7 @@
 define([
-	"../common/format-message"
-], function( formatMessage ) {
+	"../common/format-message-to-parts",
+	"../util/parts/push"
+], function( formatMessageToParts, partsPush ) {
 
 /**
  * nameFormat( formattedNumber, pluralForm, properties )
@@ -9,6 +10,7 @@ define([
  */
 return function( formattedNumber, pluralForm, properties ) {
 	var displayName, unitPattern,
+		parts = [],
 		displayNames = properties.displayNames || {},
 		unitPatterns = properties.unitPatterns;
 
@@ -19,11 +21,19 @@ return function( formattedNumber, pluralForm, properties ) {
 	unitPattern = unitPatterns[ "unitPattern-count-" + pluralForm ] ||
 		unitPatterns[ "unitPattern-count-other" ];
 
-	// FIXME formatMessage to parts
-	return {
-		type: "literal",
-		value: formatMessage( unitPattern, [ formattedNumber, displayName ])
-	};
+	formatMessageToParts( unitPattern, [ formattedNumber, displayName ]).forEach(function(part) {
+		if (part.type === "variable" && part.name === "0") {
+			part.value.forEach(function(part) {
+				partsPush(parts, part.type, part.value);
+			});
+		} else if (part.type === "variable" && part.name === "1") {
+			partsPush(parts, "currency", part.value);
+		} else {
+			partsPush(parts, "literal", part.value);
+		}
+	});
+
+	return parts;
 };
 
 });

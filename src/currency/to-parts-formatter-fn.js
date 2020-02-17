@@ -9,7 +9,7 @@ define([
 return function( numberToPartsFormatter, pluralGenerator, properties ) {
 	var fn;
 
-	// Return formatter when style is "code" or "name".
+	// Return formatter when style is "name".
 	if ( pluralGenerator && properties ) {
 		fn = function currencyFormatter( value ) {
 			validateParameterPresence( value, "value" );
@@ -21,7 +21,7 @@ return function( numberToPartsFormatter, pluralGenerator, properties ) {
 			);
 		};
 
-	// Return formatter when style is "symbol" or "accounting".
+	// Return formatter when style is "symbol", "accounting", or "code".
 	} else {
 		fn = function currencyFormatter( value ) {
 
