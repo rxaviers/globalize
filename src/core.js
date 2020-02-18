@@ -2,6 +2,8 @@ define([
 	"cldr",
 	"./common/create-error",
 	"./common/format-message",
+	"./common/parts/join",
+	"./common/parts/push",
 	"./common/runtime-bind",
 	"./common/validate",
 	"./common/validate/cldr",
@@ -15,16 +17,14 @@ define([
 	"./util/always-cldr",
 	"./util/is-plain-object",
 	"./util/object/extend",
-	"./util/parts/join",
-	"./util/parts/push",
 	"./util/regexp/escape",
 	"./util/string/pad",
 
 	"cldr/event"
-], function( Cldr, createError, formatMessage, runtimeBind, validate, validateCldr,
-	validateDefaultLocale, validateParameterPresence, validateParameterRange, validateParameterType,
-	validateParameterTypeLocale, validateParameterTypePlainObject, alwaysArray, alwaysCldr,
-	isPlainObject, objectExtend, partsJoin, partsPush, regexpEscape, stringPad ) {
+], function( Cldr, createError, formatMessage, partsJoin, partsPush, runtimeBind, validate,
+	validateCldr, validateDefaultLocale, validateParameterPresence, validateParameterRange,
+	validateParameterType, validateParameterTypeLocale, validateParameterTypePlainObject,
+	alwaysArray, alwaysCldr, isPlainObject, objectExtend, regexpEscape, stringPad ) {
 
 function validateLikelySubtags( cldr ) {
 	cldr.once( "get", validateCldr );

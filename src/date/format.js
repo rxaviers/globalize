@@ -8,7 +8,7 @@ define([
 	"./start-of",
 	"./timezone-hour-format",
 	"./week-days",
-	"../util/parts/push",
+	"../common/parts/push",
 	"../util/remove-literal-quotes"
 ], function( ZonedDateTime, dateDayOfWeek, dateDayOfYear, dateFieldsMap, dateMillisecondsInDay,
 	datePatternRe, dateStartOf, dateTimezoneHourFormat, dateWeekDays, partsPush,

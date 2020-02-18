@@ -1,5 +1,5 @@
 define([
-	"../util/parts/push"
+	"./parts/push"
 ], function( partsPush ) {
 
 /**

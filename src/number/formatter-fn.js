@@ -1,5 +1,5 @@
 define([
-	"../util/parts/join"
+	"../common/parts/join"
 ], function( partsJoin ) {
 
 return function( numberToPartsFormatter ) {

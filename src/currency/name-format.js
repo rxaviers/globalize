@@ -1,6 +1,6 @@
 define([
 	"../common/format-message-to-parts",
-	"../util/parts/push"
+	"../common/parts/push"
 ], function( formatMessageToParts, partsPush ) {
 
 /**

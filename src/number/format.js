@@ -5,7 +5,7 @@ define([
 	"./format/significant-digits",
 	"./pattern-re",
 	"./symbol/name",
-	"../util/parts/push",
+	"../common/parts/push",
 	"../util/remove-literal-quotes"
 ], function( numberCompactPatternRe, numberFormatGroupingSeparator,
 	numberFormatIntegerFractionDigits, numberFormatSignificantDigits, numberPatternRe,
