@@ -42,6 +42,7 @@
 "use strict";
 
 var formatMessage = Globalize._formatMessage,
+	partsJoin = Globalize._partsJoin,
 	runtimeKey = Globalize._runtimeKey,
 	validateParameterPresence = Globalize._validateParameterPresence,
 	validateParameterTypeNumber = Globalize._validateParameterTypeNumber;

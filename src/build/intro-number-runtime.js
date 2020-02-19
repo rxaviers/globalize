@@ -38,6 +38,7 @@
 "use strict";
 
 var createError = Globalize._createError,
+	partsJoin = Globalize._partsJoin,
 	regexpEscape = Globalize._regexpEscape,
 	runtimeKey = Globalize._runtimeKey,
 	stringPad = Globalize._stringPad,

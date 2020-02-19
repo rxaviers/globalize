@@ -1,13 +1,14 @@
 define([
 	"./common/create-error",
 	"./common/format-message",
+	"./common/parts/join",
 	"./common/runtime-key",
 	"./common/validate/parameter-presence",
 	"./common/validate/parameter-type",
 	"./common/validate/parameter-type/string",
 	"./util/regexp/escape",
 	"./util/string/pad"
-], function( createError, formatMessage, runtimeKey, validateParameterPresence,
+], function( createError, formatMessage, partsJoin, runtimeKey, validateParameterPresence,
 	validateParameterType, validateParameterTypeString, regexpEscape, stringPad ) {
 
 function Globalize( locale ) {
@@ -32,6 +33,7 @@ Globalize.locale = function( locale ) {
 
 Globalize._createError = createError;
 Globalize._formatMessage = formatMessage;
+Globalize._partsJoin = partsJoin;
 Globalize._regexpEscape = regexpEscape;
 Globalize._runtimeKey = runtimeKey;
 Globalize._stringPad = stringPad;
