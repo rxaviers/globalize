@@ -1,6 +1,7 @@
 define([
 	"./common/create-error",
 	"./common/format-message",
+	"./common/format-message-to-parts",
 	"./common/parts/join",
 	"./common/runtime-key",
 	"./common/validate/parameter-presence",
@@ -8,8 +9,9 @@ define([
 	"./common/validate/parameter-type/string",
 	"./util/regexp/escape",
 	"./util/string/pad"
-], function( createError, formatMessage, partsJoin, runtimeKey, validateParameterPresence,
-	validateParameterType, validateParameterTypeString, regexpEscape, stringPad ) {
+], function( createError, formatMessage, formatMessageToParts, partsJoin, runtimeKey,
+	validateParameterPresence, validateParameterType, validateParameterTypeString, regexpEscape,
+	stringPad ) {
 
 function Globalize( locale ) {
 	if ( !( this instanceof Globalize ) ) {
@@ -33,6 +35,7 @@ Globalize.locale = function( locale ) {
 
 Globalize._createError = createError;
 Globalize._formatMessage = formatMessage;
+Globalize._formatMessageToParts = formatMessageToParts;
 Globalize._partsJoin = partsJoin;
 Globalize._regexpEscape = regexpEscape;
 Globalize._runtimeKey = runtimeKey;

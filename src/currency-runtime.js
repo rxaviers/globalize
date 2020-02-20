@@ -24,7 +24,9 @@ Globalize.prototype.currencyFormatter = function( currency, options ) {
 Globalize.currencyToPartsFormatter =
 Globalize.prototype.currencyToPartsFormatter = function( currency, options ) {
 	options = options || {};
-	return Globalize[ runtimeKey( "currencyToPartsFormatter", this._locale, [ currency, options ] ) ];
+	return Globalize[
+		runtimeKey( "currencyToPartsFormatter", this._locale, [ currency, options ] )
+	];
 };
 
 Globalize.formatCurrency =

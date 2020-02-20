@@ -350,7 +350,7 @@ return function( date, numberFormatters, properties ) {
 		dateField = dateFieldsMap[ chr ];
 		type = dateField ? dateField : "literal";
 
-		partsPush(parts, type, value );
+		partsPush( parts, type, value );
 	});
 
 	return parts;

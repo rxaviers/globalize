@@ -151,7 +151,7 @@ return function( number, properties, pluralGenerator ) {
 		}
 
 		// Currency symbol
-		if (character === "\u00A4") {
+		if ( character === "\u00A4" ) {
 			partsPush( parts, "currency", character );
 			return;
 		}

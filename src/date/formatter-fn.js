@@ -4,7 +4,7 @@ define([
 
 return function( dateToPartsFormatter ) {
 	return function dateFormatter( value ) {
-		return partsJoin(dateToPartsFormatter( value ));
+		return partsJoin( dateToPartsFormatter( value ));
 	};
 };
 

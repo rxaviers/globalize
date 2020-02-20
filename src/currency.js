@@ -16,7 +16,7 @@ define([
 	"./number",
 
 	"cldr/event",
-	"cldr/supplemental",
+	"cldr/supplemental"
 
 ], function( Globalize, createErrorPluralModulePresence, runtimeBind, validateCldr,
 	validateDefaultLocale, validateParameterPresence, validateParameterTypeCurrency,
@@ -130,9 +130,17 @@ Globalize.prototype.currencyToPartsFormatter = function( currency, options ) {
 			this.pluralGenerator() :
 			createErrorPluralModulePresence;
 
-		returnFn = currencyToPartsFormatterFn( numberToPartsFormatter, pluralGenerator, properties );
+		returnFn = currencyToPartsFormatterFn(
+			numberToPartsFormatter,
+			pluralGenerator,
+			properties
+		);
 
-		runtimeBind( args, cldr, returnFn, [ numberToPartsFormatter, pluralGenerator, properties ] );
+		runtimeBind( args, cldr, returnFn, [
+			numberToPartsFormatter,
+			pluralGenerator,
+			properties
+		]);
 	}
 
 	return returnFn;
@@ -167,6 +175,8 @@ Globalize.prototype.currencyParser = function( /* currency, options */ ) {
  */
 Globalize.formatCurrency =
 Globalize.prototype.formatCurrency = function( value, currency, options ) {
+	validateParameterPresence( value, "value" );
+	validateParameterTypeNumber( value, "value" );
 	return this.currencyFormatter( currency, options )( value );
 };
 
@@ -183,6 +193,8 @@ Globalize.prototype.formatCurrency = function( value, currency, options ) {
  */
 Globalize.formatCurrencyToParts =
 Globalize.prototype.formatCurrencyToParts = function( value, currency, options ) {
+	validateParameterPresence( value, "value" );
+	validateParameterTypeNumber( value, "value" );
 	return this.currencyToPartsFormatter( currency, options )( value );
 };
 

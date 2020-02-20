@@ -4,7 +4,7 @@ define([
 
 return function( currencyToPartsFormatter ) {
 	return function currencyFormatter( value ) {
-		return partsJoin(currencyToPartsFormatter( value ));
+		return partsJoin( currencyToPartsFormatter( value ));
 	};
 };
 

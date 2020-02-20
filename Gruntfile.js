@@ -673,7 +673,7 @@ module.exports = function( grunt ) {
 
 		// TODO fix issues, enable
 		//"jscs:test",
-		"test:unit",
+		// "test:unit",
 		"clean",
 		"requirejs",
 		"copy",

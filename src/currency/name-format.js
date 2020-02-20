@@ -21,15 +21,15 @@ return function( formattedNumber, pluralForm, properties ) {
 	unitPattern = unitPatterns[ "unitPattern-count-" + pluralForm ] ||
 		unitPatterns[ "unitPattern-count-other" ];
 
-	formatMessageToParts( unitPattern, [ formattedNumber, displayName ]).forEach(function(part) {
-		if (part.type === "variable" && part.name === "0") {
-			part.value.forEach(function(part) {
-				partsPush(parts, part.type, part.value);
+	formatMessageToParts( unitPattern, [ formattedNumber, displayName ]).forEach(function( part ) {
+		if ( part.type === "variable" && part.name === "0" ) {
+			part.value.forEach(function( part ) {
+				partsPush( parts, part.type, part.value );
 			});
-		} else if (part.type === "variable" && part.name === "1") {
-			partsPush(parts, "currency", part.value);
+		} else if ( part.type === "variable" && part.name === "1" ) {
+			partsPush( parts, "currency", part.value );
 		} else {
-			partsPush(parts, "literal", part.value);
+			partsPush( parts, "literal", part.value );
 		}
 	});
 

@@ -4,7 +4,7 @@ define([
 
 return function( numberToPartsFormatter ) {
 	return function numberFormatter( value ) {
-		return partsJoin(numberToPartsFormatter( value ));
+		return partsJoin( numberToPartsFormatter( value ));
 	};
 };
 

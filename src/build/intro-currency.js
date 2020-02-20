@@ -34,7 +34,8 @@
 }(this, function( Cldr, Globalize ) {
 
 var alwaysArray = Globalize._alwaysArray,
-	formatMessage = Globalize._formatMessage,
+	createError = Globalize._createError,
+	formatMessageToParts = Globalize._formatMessageToParts,
 	numberNumberingSystem = Globalize._numberNumberingSystem,
 	numberPattern = Globalize._numberPattern,
 	partsJoin = Globalize._partsJoin,

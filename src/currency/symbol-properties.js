@@ -16,7 +16,7 @@ return function( currency, cldr, options ) {
 			"[:^S:]": regexpNotS
 		};
 
-	if ( options.style === "code") {
+	if ( options.style === "code" ) {
 		symbol = currency;
 	} else {
 		symbolEntries = [ "symbol" ];

@@ -15,7 +15,11 @@ define([
  * > [{type: "variable", value: "1", name: "0"}, {type: "literal", value: " second"}]
  *
  * - formatMessage( "{0}/{1}", ["m", "s"] );
- * > [{type: "variable", value: "m", name: "0"}, {type: "literal", value: " /"}, {type: "variable", value: "s", name: "1"}]
+ * > [
+ *     { type: "variable", value: "m", name: "0" },
+ *     { type: "literal", value: " /" },
+ *     { type: "variable", value: "s", name: "1" }
+ *   ]
  */
 return function( message, data ) {
 
@@ -26,13 +30,13 @@ return function( message, data ) {
 	message.replace( /{[0-9a-zA-Z-_. ]+}/g, function( nameIncludingBrackets, offset ) {
 		var name = nameIncludingBrackets.slice( 1, -1 );
 		partsPush( parts, "literal", message.slice( lastOffset, offset ));
-		partsPush( parts, "variable", data[ name ]);
+		partsPush( parts, "variable", data[ name ] );
 		parts[ parts.length - 1 ].name = name;
 		lastOffset += offset + nameIncludingBrackets.length;
 	});
 
 	// Skip empty ones such as `{ type: 'literal', value: '' }`.
-	return parts.filter(function(part) {
+	return parts.filter(function( part ) {
 		return part.value !== "";
 	});
 };
