@@ -11,7 +11,7 @@ return function( numberToPartsFormatter, pluralGenerator, properties ) {
 
 	// Return formatter when style is "name".
 	if ( pluralGenerator && properties ) {
-		fn = function currencyFormatter( value ) {
+		fn = function currencyToPartsFormatter( value ) {
 			validateParameterPresence( value, "value" );
 			validateParameterTypeNumber( value, "value" );
 			return currencyNameFormat(
@@ -23,7 +23,7 @@ return function( numberToPartsFormatter, pluralGenerator, properties ) {
 
 	// Return formatter when style is "symbol", "accounting", or "code".
 	} else {
-		fn = function currencyFormatter( value ) {
+		fn = function currencyToPartsFormatter( value ) {
 
 			// 1: Reusing pluralGenerator argument, but in this case it is actually `symbol`
 			return currencySymbolFormat( numberToPartsFormatter( value ), pluralGenerator /* 1 */ );

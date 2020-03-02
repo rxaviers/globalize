@@ -5,7 +5,7 @@ define([
 ], function( validateParameterPresence, validateParameterTypeNumber, numberFormat ) {
 
 return function( properties, pluralGenerator ) {
-	return function numberFormatter( value ) {
+	return function numberToPartsFormatter( value ) {
 		validateParameterPresence( value, "value" );
 		validateParameterTypeNumber( value, "value" );
 
